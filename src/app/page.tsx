@@ -1,7 +1,9 @@
+"use client";
 // import Image from "next/image";
 
 import About from "./components/about";
 import Discord from "./components/discord";
+import SpotifyNowListening from "./components/spotifyNowListening";
 
 export default function Home() {
   return (
@@ -24,9 +26,7 @@ export default function Home() {
         <div className="col-start-1 row-start-8 col-span-2 md:col-start-4 md:row-start-3 md:col-span-1 md:row-span-2 bg-(--box) rounded-md p-10 min-h-[180px] min-w-[180px] md:min-h-[290px] md:min-w-[290px] sm:min-h-[260px] sm:min-w-[260px]">
           6
         </div>
-        <div className="col-start-1 row-start-9 col-span-2 md:col-start-1 md:row-start-4 md:col-span-2 md:row-span-1 bg-(--box) rounded-md p-10 min-h-[180px] min-w-[180px] md:min-h-[290px] md:min-w-[290px] sm:min-h-[260px] sm:min-w-[260px]">
-          7
-        </div>
+        <SpotifyNowListening />
         <div className="col-start-1 row-start-11 col-span-2 md:col-start-3 md:row-start-4 md:col-span-1 md:row-span-1 bg-(--box) rounded-md p-10 min-h-[180px] min-w-[180px] md:min-h-[290px] md:min-w-[290px] sm:min-h-[260px] sm:min-w-[260px]">
           8
         </div>
