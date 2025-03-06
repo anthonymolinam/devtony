@@ -15,8 +15,8 @@ export default function Contact() {
       </div>
 
       {/* Contenedor del texto con padding-top */}
-      <div className="pt-0 md:pt-24">
-        <h2 className="uppercase font-bold text-white text-lg md:text-4xl mb-4">
+      <div className="flex flex-col justify-center items-start h-full pt-0 md:pt-0">
+        <h2 className="uppercase font-bold text-white text-lg md:text-4xl mb-4 ">
           Wanna talk? <br /> Send me a message.
         </h2>
 
@@ -27,6 +27,13 @@ export default function Contact() {
         >
           admm1225@gmail.com
         </Link>
+      </div>
+      <div className="absolute bottom-10 right-0">
+        <Image
+          src={send}
+          alt="Send Icon"
+          className="w-[210px] h-auto hidden md:block transform scale-x-[-1] scale-y-[-1]"
+        />
       </div>
     </div>
   );
