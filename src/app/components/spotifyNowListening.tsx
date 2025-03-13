@@ -10,7 +10,7 @@ export default function SpotifyNowListening() {
   if (isLoading) return <SpotifySkeleton />;
 
   return (
-    <div className="relative col-start-1 row-start-9 col-span-2 md:col-start-1 md:row-start-4 md:col-span-2 md:row-span-1 bg-(--box) rounded-4xl p-10 min-h-[180px] min-w-[180px] md:min-h-[290px] md:min-w-[290px] sm:min-h-[260px] sm:min-w-[260px] flex flex-col items-center justify-center text-center overflow-hidden">
+    <div className="relative col-start-1 row-start-9 col-span-2 md:col-start-1 md:row-start-4 md:col-span-2 md:row-span-1 bg-(--box) rounded-xl p-10 min-h-[180px] min-w-[180px] md:min-h-[290px] md:min-w-[290px] sm:min-h-[260px] sm:min-w-[260px] flex flex-col items-center justify-center text-center overflow-hidden">
       {song && song.albumImageUrl && (
         <Image
           src={song.albumImageUrl}

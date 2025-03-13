@@ -14,7 +14,7 @@ export default function Discord() {
 
   const statusColors: Record<string, string> = {
     online: "bg-[#29a55d]",
-    idle: "bg-[#FEE75C]",
+    idle: "bg-[#fdbf45]",
     dnd: "bg-[#ED4245]",
     offline: "bg-[#81858e]",
   };
@@ -24,7 +24,7 @@ export default function Discord() {
 
   return (
     <div
-      className={`col-start-2 row-start-3 md:col-start-1 md:row-start-2 md:col-span-1 md:row-span-1 ${bgColor} rounded-4xl p-10 min-h-[180px] min-w-[180px] md:min-h-[290px] md:min-w-[290px] sm:min-h-[260px] sm:min-w-[260px] flex flex-col items-center justify-center text-white`}
+      className={`col-start-2 row-start-3 md:col-start-1 md:row-start-2 md:col-span-1 md:row-span-1 ${bgColor} rounded-xl p-10 min-h-[180px] min-w-[180px] md:min-h-[290px] md:min-w-[290px] sm:min-h-[260px] sm:min-w-[260px] flex flex-col items-center justify-center text-white`}
     >
       <Image
         src={DiscordIcon}
