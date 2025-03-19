@@ -8,6 +8,10 @@ interface DiscordUser {
 interface Activity {
   name: string;
   type: number;
+  application_id?: string;
+  assets?: {
+    large_image?: string;
+  };
 }
 
 interface LanyardData {
