@@ -4,6 +4,7 @@
 import About from "./components/about";
 import Contact from "./components/contact";
 import Discord from "./components/discord";
+import Github from "./components/github";
 import Photo from "./components/photo";
 import SpotifyNowListening from "./components/spotifyNowListening";
 
@@ -25,9 +26,7 @@ export default function Home() {
           6
         </div>
         <SpotifyNowListening />
-        <div className="col-start-1 row-start-11 col-span-2 md:col-start-3 md:row-start-4 md:col-span-1 md:row-span-1 bg-(--box) rounded-xl p-10 min-h-[180px] min-w-[180px] md:min-h-[290px] md:min-w-[290px] sm:min-h-[260px] sm:min-w-[260px]">
-          8
-        </div>
+        <Github />
       </div>
     </div>
   );

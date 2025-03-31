@@ -38,7 +38,7 @@ const getActivityMessage = (activity?: Activity) => {
   if (!activity) return null;
 
   if (activity.name === "Spotify") {
-    return `Listening to ${activity.details} by ${activity.state}`;
+    return "Listening to Spotify"; // Detalles de Spotify
   }
 
   if (activity.name.toLowerCase().includes("visual studio code")) {
