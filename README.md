@@ -13,13 +13,11 @@
 ## Highlights
 
 - **Responsive & Adaptable:** Experience seamless browsing across all devices, ensuring your journey is smooth, regardless of screen size.
-- **Bilingual Experience:** Navigate effortlessly in English or Spanish, unlocking a richer understanding of my skills and projects.
-- **Dynamic Themes:** Switch between Light and Dark modes to match your mood or environment, enhancing your viewing pleasure.
 - **Project Showcase:** Explore my diverse portfolio, highlighting my expertise in web design and development.
 - **Social Connectivity:** Stay connected with me through various social platforms and join the conversation.
 - **Musical Vibes:** Discover my current Spotify playlist, a glimpse into the sounds that inspire my work.
 - **Real-Time Weather:** Get instant weather updates, keeping you informed as you explore.
-- **Interactive Chatbot:** Engage with my chatbot for personalized assistance, theme adjustments, and language preferences.
+- **GitHub Contributions:** Dynamic display of my latest contributions and link to my GitHub profile.
 
 ## Inspired By
 
