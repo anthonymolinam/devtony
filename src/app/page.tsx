@@ -6,6 +6,7 @@ import Contact from "./components/contact";
 import Discord from "./components/discord";
 import Github from "./components/github";
 import Photo from "./components/photo";
+import Setup from "./components/setup";
 import SpotifyNowListening from "./components/spotifyNowListening";
 
 export default function Home() {
@@ -19,9 +20,7 @@ export default function Home() {
         <div className="col-start-1 row-start-5 col-span-2 row-span-3 md:col-start-2 md:row-start-2 md:col-span-2 md:row-span-2 bg-[#d3c3d9] rounded-xl p-10 min-h-[180px] min-w-[180px] md:min-h-[290px] md:min-w-[290px] sm:min-h-[260px] sm:min-w-[260px] text-black">
           4
         </div>
-        <div className="col-start-1 row-start-10 col-span-2 md:col-start-1 md:row-start-3 md:col-span-1 md:row-span-1 bg-[#eb5a35] rounded-xl p-10 min-h-[180px] min-w-[180px] md:min-h-[290px] md:min-w-[290px] sm:min-h-[260px] sm:min-w-[260px]">
-          5
-        </div>
+        <Setup />
         <div className="col-start-1 row-start-8 col-span-2 md:col-start-4 md:row-start-3 md:col-span-1 md:row-span-2 bg-(--box) rounded-xl p-10 min-h-[180px] min-w-[180px] md:min-h-[290px] md:min-w-[290px] sm:min-h-[260px] sm:min-w-[260px]">
           6
         </div>
