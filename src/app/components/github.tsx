@@ -38,12 +38,14 @@ export default function Github() {
   };
 
   return (
-    <div className="relative col-start-1 row-start-11 col-span-2 md:col-start-3 md:row-start-4 md:col-span-1 md:row-span-1 rounded-xl p-4 min-h-[180px] min-w-[180px] md:min-h-[290px] md:min-w-[290px] sm:min-h-[260px] sm:min-w-[260px] overflow-hidden bg-[#e6e5dc] text-black flex flex-col">
-      <div className="flex items-center space-x-2 mb-2">
-        <Image src={GithubIcon} alt="GitHub logo" />
-        <span className="text-sm font-semibold">GitHub</span>
+    <div className="relative col-start-1 row-start-11 col-span-2 md:col-start-3 md:row-start-4 md:col-span-1 md:row-span-1 rounded-xl p-10 min-h-[180px] min-w-[180px] md:min-h-[290px] md:min-w-[290px] sm:min-h-[260px] sm:min-w-[260px] overflow-hidden bg-[#e6e5dc] text-black flex flex-col">
+      {/* Encabezado alineado como "What I use" */}
+      <div className="flex items-center gap-2 mb-6 sm:mb-8">
+        <Image src={GithubIcon} alt="GitHub logo" className="w-6 h-6" />
+        <span className="text-base font-semibold">GitHub</span>
       </div>
 
+      {/* Calendario centrado */}
       <div className="flex-1 flex items-center justify-center relative">
         {loading && (
           <div className="absolute inset-0 flex items-center justify-center">
@@ -63,7 +65,7 @@ export default function Github() {
               username="anthonymolinam"
               transformData={(data) => data.slice(-daysToShow)}
               hideTotalCount
-              hideMonthLabels={hideMonthLabels} // Dinámico según el tamaño
+              hideMonthLabels={hideMonthLabels}
               blockRadius={4}
               blockMargin={2}
               theme={explicitTheme}
