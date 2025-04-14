@@ -6,7 +6,7 @@ import Image from "next/image";
 
 export default function Github() {
   const [daysToShow, setDaysToShow] = useState(85);
-  const [hideLabels, setHideLabels] = useState(true); // Estado para controlar las etiquetas
+  const [hideMonthLabels, setHideMonthLabels] = useState(true); // Estado para controlar las etiquetas
   const [loading, setLoading] = useState(true);
 
   // Ajustar el número de días y las etiquetas según el tamaño de la pantalla
@@ -14,10 +14,10 @@ export default function Github() {
     const updateResponsiveSettings = () => {
       if (window.innerWidth < 640) {
         setDaysToShow(120);
-        setHideLabels(true); // Mostrar etiquetas en móvil
+        setHideMonthLabels(true); // Mostrar etiquetas en móvil
       } else {
         setDaysToShow(90);
-        setHideLabels(false); // Ocultar etiquetas en desktop
+        setHideMonthLabels(false); // Ocultar etiquetas en desktop
       }
     };
 
@@ -38,7 +38,7 @@ export default function Github() {
   };
 
   return (
-    <div className="relative col-start-1 row-start-11 col-span-2 md:col-start-3 md:row-start-4 md:col-span-1 md:row-span-1 rounded-xl p-10 max-h-[210px] w-auto md:min-h-[290px] md:min-w-[290px] sm:min-h-[260px] sm:min-w-[260px] overflow-hidden bg-[#e6e5dc] text-black flex flex-col">
+    <div className="relative col-start-1 row-start-11 col-span-2 md:col-start-3 md:row-start-4 md:col-span-1 md:row-span-1 rounded-xl p-10 max-h-[250px] w-auto md:min-h-[290px] md:min-w-[290px] sm:min-h-[260px] sm:min-w-[260px] overflow-hidden bg-[#e6e5dc] text-black flex flex-col">
       {/* Encabezado alineado como "What I use" */}
       <div className="flex items-center gap-2 mb-4 sm:mb-8">
         <Image src={GithubIcon} alt="GitHub logo" className="w-6 h-6" />
@@ -65,11 +65,10 @@ export default function Github() {
               username="anthonymolinam"
               transformData={(data) => data.slice(-daysToShow)}
               hideTotalCount
-              hideMonthLabels={hideLabels}
+              hideMonthLabels={hideMonthLabels}
               blockRadius={4}
               blockMargin={2}
               theme={explicitTheme}
-              hideColorLegend={hideLabels}
             />
           </div>
         </Link>
