@@ -12,7 +12,7 @@ import SpotifyNowListening from "./components/spotifyNowListening";
 export default function Home() {
   return (
     <div className="flex justify-center items-center min-h-screen">
-      <div className="grid grid-cols-2 md:grid-cols-4 grid-rows-11 md:grid-rows-4 gap-4 md:gap-4 m-4 max-w-[1200px]">
+      <div className="grid grid-cols-2 md:grid-cols-4 grid-rows-10 md:grid-rows-4 gap-4 md:gap-4 m-4 max-w-[1200px]">
         <About />
         <Photo />
         <Contact />

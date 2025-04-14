@@ -2,7 +2,7 @@ import { Cpu, Microchip, Keyboard, Mouse, MonitorSpeaker } from "lucide-react";
 
 export default function Setup() {
   return (
-    <div className="col-start-1 row-start-10 col-span-2 md:col-start-1 md:row-start-3 md:col-span-1 md:row-span-1 bg-[#eb5a35] rounded-xl p-10 h-full w-auto min-h-[190px] md:min-h-[290px] md:min-w-[290px] sm:min-h-[260px] sm:min-w-[260px] text-white">
+    <div className="col-start-1 row-start-10 col-span-2 md:col-start-1 md:row-start-3 md:col-span-1 md:row-span-1 bg-[#eb5a35] rounded-xl p-10 w-auto max-h-[210px] overflow-hidden md:min-h-[290px] md:min-w-[290px] sm:min-h-[260px] sm:min-w-[260px] text-white">
       {/* Título alineado arriba a la izquierda */}
       <div className="flex items-center gap-2 mb-6 sm:mb-8">
         <MonitorSpeaker className="w-6 h-6" />
