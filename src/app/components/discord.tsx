@@ -73,7 +73,7 @@ export default function Discord() {
 
   return (
     <div
-      className={`relative col-start-2 row-start-3 md:col-start-1 md:row-start-2 md:col-span-1 md:row-span-1 ${bgColor} rounded-xl p-6 md:p-10 min-h-[180px] min-w-[180px] md:min-h-[290px] md:min-w-[290px] sm:min-h-[260px] sm:min-w-[260px] flex flex-col items-center justify-center text-white border border-white/10 transition-all duration-300 ease-in-out`}
+      className={`relative col-start-2 row-start-2 md:col-start-4 md:row-start-1 md:col-span-1 md:row-span-1 ${bgColor} rounded-xl p-6 md:p-10 flex flex-col items-center justify-center text-white border border-white/10 transition-all duration-300 ease-in-out`}
     >
       {/* Imagen de fondo */}
       {activityImage && (

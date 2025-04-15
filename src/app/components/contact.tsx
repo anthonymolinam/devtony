@@ -4,19 +4,10 @@ import send from "@/app/assets/send.svg";
 
 export default function Contact() {
   return (
-    <div className="relative col-start-1 row-start-4 col-span-2 md:col-start-4 md:row-start-1 md:col-span-1 md:row-span-2 bg-[#2b27e3] rounded-xl p-10 min-h-[180px] min-w-[180px] md:min-h-[290px] md:min-w-[290px] sm:min-h-[260px] sm:min-w-[260px]">
-      {/* Ícono del avión saliendo de la pared */}
-      <div className="absolute left-0">
-        <Image
-          src={send}
-          alt="Send Icon"
-          className="w-[210px] h-auto hidden md:block"
-        />
-      </div>
-
+    <div className="relative col-start-1 row-start-7 col-span-2 md:col-start-5 md:row-start-3 md:col-span-1 md:row-span-1 bg-[#2b27e3] rounded-xl p-10">
       {/* Contenedor del texto con padding-top */}
       <div className="flex flex-col justify-center items-start h-full pt-0 md:pt-0">
-        <h2 className="uppercase font-bold text-white text-lg md:text-4xl mb-4 ">
+        <h2 className="uppercase font-bold text-white text-lg md:text-3xl mb-4 ">
           Wanna talk? <br /> Send me a message.
         </h2>
 
@@ -28,11 +19,11 @@ export default function Contact() {
           admm1225@gmail.com
         </Link>
       </div>
-      <div className="absolute bottom-10 right-0">
+      <div className="absolute top-20 right-0">
         <Image
           src={send}
           alt="Send Icon"
-          className="w-[210px] h-auto hidden md:block transform scale-x-[-1] scale-y-[-1]"
+          className="w-[110px] h-auto hidden md:block transform scale-x-[-1] scale-y-[-1]"
         />
       </div>
     </div>
