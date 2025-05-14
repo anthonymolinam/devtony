@@ -38,8 +38,8 @@ export default function Github() {
     <div className="relative col-start-2 row-start-5 md:col-start-1 md:row-start-3 md:col-span-2 md:row-span-1 rounded-xl p-10 overflow-hidden bg-[#e6e5dc] text-black flex flex-col">
       {/* Encabezado alineado como "What I use" */}
       <div className="flex items-center gap-2 mb-4 sm:mb-8">
-        <Image src={GithubIcon} alt="GitHub logo" className="w-6 h-6" />
-        <span className="text-base font-semibold">GitHub</span>
+        <Image src={GithubIcon} alt="GitHub logo" className="w-5 h-5" />
+        <h1 className="text-base font-semibold">GitHub</h1>
       </div>
 
       {/* Calendario centrado */}
