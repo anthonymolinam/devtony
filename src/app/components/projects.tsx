@@ -1,5 +1,7 @@
-import { BriefcaseBusiness, Globe, Github } from "lucide-react";
+import { BriefcaseBusiness, Globe } from "lucide-react";
 import GithubIcon from "@/app/assets/github.svg";
+import Image from "next/image";
+import Link from "next/link";
 
 export default function Projects() {
   return (
@@ -18,7 +20,13 @@ export default function Projects() {
             </p>
           </div>
           <div className="flex gap-2 text-[#4b3c5d]">
-            <Github className="w-5 h-5 cursor-pointer" />
+            <Link href="">
+              <Image
+                src={GithubIcon}
+                className="w-5 h-5 cursor-pointer"
+                alt="Github Icon"
+              />
+            </Link>
             <Globe className="w-5 h-5 cursor-pointer" />
           </div>
         </div>
@@ -33,7 +41,13 @@ export default function Projects() {
             </p>
           </div>
           <div className="flex gap-2 text-[#4b3c5d]">
-            <Github className="w-5 h-5 cursor-pointer" />
+            <Link href="">
+              <Image
+                src={GithubIcon}
+                className="w-5 h-5 cursor-pointer"
+                alt="Github Icon"
+              />
+            </Link>
             <Globe className="w-5 h-5 cursor-pointer" />
           </div>
         </div>
@@ -48,7 +62,13 @@ export default function Projects() {
             </p>
           </div>
           <div className="flex gap-2 text-[#4b3c5d]">
-            <Github className="w-5 h-5 cursor-pointer" />
+            <Link href="">
+              <Image
+                src={GithubIcon}
+                className="w-5 h-5 cursor-pointer"
+                alt="Github Icon"
+              />
+            </Link>
             <Globe className="w-5 h-5 cursor-pointer" />
           </div>
         </div>
