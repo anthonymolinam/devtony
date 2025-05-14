@@ -4,7 +4,7 @@ import send from "@/app/assets/send.svg";
 
 export default function Contact() {
   return (
-    <div className="relative col-start-1 row-start-7 col-span-2 md:col-start-5 md:row-start-3 md:col-span-1 md:row-span-1 bg-[#2b27e3] rounded-xl p-10">
+    <div className="relative col-start-1 row-start-7 col-span-2 md:col-start-5 md:row-start-3 md:col-span-1 md:row-span-1 bg-[#a6b1f2] rounded-xl p-10">
       {/* Contenedor del texto con padding-top */}
       <div className="flex flex-col justify-center items-start h-full pt-0 md:pt-0">
         <h2 className="uppercase font-bold text-white text-lg md:text-3xl mb-4 ">
