@@ -1,6 +1,6 @@
 import { useSpotify } from "@/hooks/useSpotify";
 import Image from "next/image";
-import spotifyIcon from "@/app/assets/spotify.svg";
+import SpotifyIcon from "@/app/assets/spotify.svg";
 import SpotifySkeleton from "@/app/components/Skeletons/SpotifySkeleton";
 
 export default function Spotify() {
@@ -21,7 +21,7 @@ export default function Spotify() {
         />
       )}
       <div className="absolute top-6 left-5 flex items-center space-x-2 bg-black/50 px-3 py-2 rounded-full">
-        <Image src={spotifyIcon} alt="Spotify logo" width={24} height={24} />
+        <SpotifyIcon className="w-6 h-6" />
         <span className="text-xs text-white font-semibold">
           {isPlaying ? "Currently Listening" : "Recently Listened"}
         </span>

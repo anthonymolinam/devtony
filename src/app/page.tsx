@@ -1,4 +1,5 @@
 "use client";
+import Unkwon from "./components/3";
 // import Image from "next/image";
 
 import About from "./components/about";
@@ -17,9 +18,7 @@ export default function Home() {
         <About />
         <Photo />
         <Discord />
-        <div className="col-start-1 row-start-3 col-span-2 md:col-start-5 md:row-start-1 md:col-span-1 md:row-span-2 bg-gray-300 rounded-md p-4">
-          3
-        </div>
+        <Unkwon />
         <Setup />
         <Projects />
         <Github />

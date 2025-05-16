@@ -91,8 +91,7 @@ export default function Discord() {
       <div className="relative flex flex-col items-center">
         {/* Icono de Discord y Estado */}
         <div className="flex items-center gap-2">
-          <Image
-            src={DiscordIcon}
+          <DiscordIcon
             alt="Discord"
             width={28}
             height={28}

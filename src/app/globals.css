@@ -1,24 +1,42 @@
 @import "tailwindcss";
-
-@theme {
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-  --box: #1c1c1c;
-}
-
-:root {
-  --background: #ffffff;
-  --foreground: ;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #151514;
-    --foreground: #ededed;
-  }
-}
+@import "swiper/css";
+@import "swiper/css/pagination";
 
 body {
   color: var(--foreground);
   background: #161616;
+}
+
+.swiper-custom-pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.step-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: auto;
+  height: 30px;
+  padding: 0 15px;
+  border-radius: 15px;
+  background-color: #282828;
+  color: #ffffff;
+  font-size: 0.9rem;
+  opacity: 1;
+  cursor: pointer;
+  margin: 0 5px;
+  border: none;
+  outline: none;
+}
+
+.step-button.active {
+  background-color: #6f3989;
+  color: #ffffff;
+}
+
+.step-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
