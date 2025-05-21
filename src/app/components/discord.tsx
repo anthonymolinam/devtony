@@ -1,6 +1,5 @@
 "use client";
 
-import DiscordSkeleton from "@/app/components/Skeletons/DiscordSkeleton";
 import useLanyard from "@/hooks/useLanyard";
 import Image from "next/image";
 import DiscordIcon from "@/app/assets/discord.svg";

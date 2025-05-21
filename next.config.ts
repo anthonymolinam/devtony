@@ -1,30 +1,20 @@
 import type { NextConfig } from "next";
 
-type Rule = {
-  test?: RegExp;
-  exclude?: RegExp;
-  use?: string | string[];
-};
-
 const nextConfig: NextConfig = {
   images: {
     domains: ["cdn.discordapp.com", "i.scdn.co", "i.redd.it"],
   },
   webpack(config) {
-    const fileLoaderRule = config.module.rules.find(
-      (rule: unknown): rule is Rule =>
-        typeof rule !== "string" &&
-        typeof rule === "object" &&
-        rule !== null &&
-        "test" in rule &&
-        (rule as { test?: unknown }).test instanceof RegExp &&
-        (rule as { test: RegExp }).test.test(".svg")
+    // Encuentra la regla original que procesa .svg y la excluye
+    const fileLoaderRule = config.module.rules.find((rule: any) =>
+      rule.test?.test?.(".svg")
     );
 
     if (fileLoaderRule) {
       fileLoaderRule.exclude = /\.svg$/;
     }
 
+    // Agrega la nueva regla para SVGR
     config.module.rules.push({
       test: /\.svg$/,
       use: ["@svgr/webpack"],
