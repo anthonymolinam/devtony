@@ -1,4 +1,5 @@
 import Hero from "./components/hero";
+import Setup from "./components/setup";
 
 export default function Home() {
   return (
@@ -15,9 +16,7 @@ export default function Home() {
         <div className="col-start-1 row-start-3 md:col-start-3 md:row-start-1 md:col-span-1 md::row-span-1 bg-[#202120] border-3 border-[#2d2c2d] rounded-2xl p-10 flex items-center justify-center">
           2
         </div>
-        <div className="col-start-1 row-start-4 md:col-start-1 md:row-start-2 md::col-span-1 md::row-span-1 bg-[#202120] border-3 border-[#2d2c2d] rounded-2xl p-10 flex items-center justify-center">
-          3
-        </div>
+        <Setup />
         <div className="col-start-1 row-start-5 row-span-2 md:col-start-2 md:row-start-2 md:col-span-2 md:row-span-1 bg-[#202120] border-3 border-[#2d2c2d] rounded-2xl p-10 flex items-center justify-center">
           Projects
         </div>
