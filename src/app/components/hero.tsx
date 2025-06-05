@@ -1,11 +1,11 @@
-import { AtSign } from "lucide-react";
+import { Mail } from "lucide-react";
 
 export default function Hero() {
   return (
     <div className="flex flex-col items-start py-10 left">
       <div className="flex items-center mb-6">
-        <AtSign />
-        <a href="#" className="text-white no-underline text-sm">
+        <Mail />
+        <a href="#" className="text-white no-underline text-sm ml-2">
           admm1225@gmail.com
         </a>
       </div>
