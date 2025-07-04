@@ -1,4 +1,5 @@
 import Hero from "./components/hero";
+import Projects from "./components/projects";
 import Setup from "./components/setup";
 
 export default function Home() {
@@ -17,9 +18,7 @@ export default function Home() {
           2
         </div>
         <Setup />
-        <div className="col-start-1 row-start-5 row-span-2 md:col-start-2 md:row-start-2 md:col-span-2 md:row-span-1 bg-[#202120] border-3 border-[#2d2c2d] rounded-2xl p-10 flex items-center justify-center">
-          Projects
-        </div>
+        <Projects />
       </div>
       <footer className="w-full text-center py-4">
         Coded with 💖 by DevTony
