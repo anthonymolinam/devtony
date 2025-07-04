@@ -2,7 +2,7 @@ import { Cpu, Keyboard, Microchip, MonitorSpeaker, Mouse } from "lucide-react";
 
 export default function Setup() {
   return (
-    <div className="col-start-1 row-start-4 md:col-start-1 md:row-start-2 md:col-span-1 md:row-span-1 bg-[#202120] border-3 border-[#2d2c2d] rounded-2xl p-8 flex flex-col gap-6">
+    <div className="col-start-1 row-start-4 md:col-start-1 md:row-start-2 md:col-span-1 md:row-span-1 bg-[#202120] border-3 border-[#2d2c2d] rounded-2xl p-8 flex flex-col gap-6 h-[245px] w-[265px] md:w-[245px]">
       {/* Título */}
       <div className="flex items-center gap-2">
         <MonitorSpeaker className="w-5 h-5" />
