@@ -4,7 +4,7 @@ import { FolderKanban } from "lucide-react"; // Un ícono de carpeta para Projec
 
 export default function Projects() {
   return (
-    <div className="col-start-1 row-start-5 row-span-2 md:col-start-2 md:row-start-2 md:col-span-2 md:row-span-1 bg-[#202120] border-3 border-[#2d2c2d] rounded-2xl p-8 flex flex-col gap-6 relative overflow-hidden h-[245px]">
+    <div className="col-start-1 row-start-5 row-span-2 md:col-start-2 md:row-start-2 md:col-span-2 md:row-span-1 bg-[#202120] border-3 border-[#2d2c2d] rounded-2xl p-8 flex flex-col gap-6 relative overflow-hidden h-[245px] w-[265px] md:w-[506px]">
       {/* Título de Projects (similar a "What I use" con su propio fondo) */}
       <div className="flex items-center gap-2 z-20">
         {/* Este div es el que ahora tiene el fondo y el padding */}
