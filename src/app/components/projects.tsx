@@ -8,7 +8,7 @@ export default function Projects() {
       {/* Título de Projects (similar a "What I use" con su propio fondo) */}
       <div className="flex items-center gap-2 z-20">
         {/* Este div es el que ahora tiene el fondo y el padding */}
-        <div className="flex items-center gap-2 px-4 py-1 bg-black text-white rounded-full ">
+        <div className="flex items-center gap-2 text-black rounded-full ">
           <FolderKanban className="w-5 h-5" /> {/* Ícono de ejemplo */}
           <h2 className="text-base font-base">Projects</h2>
         </div>

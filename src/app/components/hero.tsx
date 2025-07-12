@@ -29,7 +29,7 @@ export default function Hero() {
       <div className="flex flex-col md:flex-row items-start md:items-center mt-2">
         {/* Párrafo del mensaje - AÑADIDO: order-1, md:order-2, mb-4, md:mb-0, md:mr-6 */}
         <p className="text-base order-1 md:order-2 mb-4 md:mb-0 md:ml-4">
-          Hello and welcome to my digital space! Take a look around; I&apos;ve
+          Welcome to my digital space! Take a look around; I&apos;ve
           meticulously coded everything here to work perfectly... probably!
         </p>
         {/* Botón Get in touch - AÑADIDO: order-2, md:order-1, flex-shrink-0 */}
