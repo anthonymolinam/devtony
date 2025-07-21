@@ -8,7 +8,7 @@ export default function Music() {
   return (
     <div className="relative bg-[#202120] border-3 border-[#2d2c2d] rounded-2xl p-6 h-[245px] w-[265px] md:w-[245px] flex flex-col justify-center items-center">
       {/* Texto esquinado */}
-      <p className="absolute top-5 left-6 text-sm text-gray-300">
+      <p className="absolute top-5 left-6 font-semibold text-sm text-gray-300">
         My music playlist
       </p>
 
