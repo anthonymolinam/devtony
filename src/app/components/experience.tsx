@@ -14,7 +14,7 @@ export default function Experience() {
       location: "Remote",
     },
     {
-      role: "Frontend Dev at Cliltutors",
+      role: "SEO Support Specialist",
       year: "2025 - Present",
       location: "On Site",
     },
@@ -22,7 +22,7 @@ export default function Experience() {
 
   return (
     <div className="relative col-start-1 row-start-1 md:col-start-1 md:row-start-1 md:col-span-1 md:row-span-1 bg-[#202120] border-3 border-[#2d2c2d] rounded-2xl p-6 flex flex-col justify-center h-[245px] w-[265px] md:w-[245px] overflow-hidden">
-      <h2 className="absolute text-sm top-5 left-6 text-gray-300">
+      <h2 className="absolute text-sm font-semibold top-5 left-6 text-gray-300">
         My experience
       </h2>
 
@@ -41,8 +41,8 @@ export default function Experience() {
               <p className="text-xs font-medium text-white">{exp.role}</p>
 
               {/* Detalles adicionales */}
-              <p className="text-xs">
-                {exp.year} - {exp.location}
+              <p className="text-[11px] text-gray-400">
+                {exp.year} ・ {exp.location}
               </p>
             </div>
           ))}
