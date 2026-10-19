@@ -1,0 +1,59 @@
+---
+import ThemeToggle from "@/components/ThemeToggle";
+import { site } from "@/data/site";
+
+const links = [
+  { href: "#experience", label: "Work" },
+  { href: "#projects", label: "Projects" },
+  { href: "#contact", label: "Contact" },
+];
+---
+
+<header class="site-header sticky top-0 z-10 bg-canvas px-gutter">
+  <div class="mx-auto flex max-w-page items-center justify-between gap-4 py-3">
+    <a href="#top" class="text-small font-medium whitespace-nowrap no-underline">{site.name}</a>
+    <nav aria-label="Main" class="flex items-center gap-1">
+      <ul class="flex items-center gap-1 sm:gap-2">
+        {
+          links.map((link) => (
+            <li>
+              <a
+                href={link.href}
+                class="inline-flex min-h-tap items-center rounded-control px-2 text-small text-ink-muted no-underline transition-colors duration-(--dur-base) ease-out hover:text-ink"
+              >
+                {link.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+      <ThemeToggle client:load />
+    </nav>
+  </div>
+</header>
+
+<style>
+  /* Bottom line fades in once the page scrolls, without JS where scroll timelines exist. */
+  .site-header::after {
+    content: "";
+    position: absolute;
+    inset: auto 0 0;
+    height: 1px;
+    background-color: var(--color-border);
+    opacity: 0;
+  }
+
+  @supports (animation-timeline: scroll()) {
+    .site-header::after {
+      animation: header-line linear both;
+      animation-timeline: scroll(root);
+      animation-range: 0 4rem;
+    }
+  }
+
+  @keyframes header-line {
+    to {
+      opacity: 1;
+    }
+  }
+</style>

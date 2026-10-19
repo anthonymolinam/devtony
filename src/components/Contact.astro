@@ -1,0 +1,31 @@
+---
+import GithubLogo from "@phosphor-icons/core/regular/github-logo.svg";
+import LinkedinLogo from "@phosphor-icons/core/regular/linkedin-logo.svg";
+import SectionTitle from "@/components/SectionTitle.astro";
+import { site } from "@/data/site";
+
+const profiles = [
+  { href: site.github, label: "GitHub", Icon: GithubLogo },
+  { href: site.linkedin, label: "LinkedIn", Icon: LinkedinLogo },
+];
+---
+
+<section id="contact" aria-labelledby="contact-title">
+  <SectionTitle id="contact-title">Have a project or a role in mind?</SectionTitle>
+  <!-- TODO(islands): copy-to-clipboard button next to the email. -->
+  <p class="mt-stack">
+    <a href={`mailto:${site.email}`} class="link text-lead break-all">{site.email}</a>
+  </p>
+  <ul class="mt-6 flex flex-wrap gap-5">
+    {
+      profiles.map(({ href, label, Icon }) => (
+        <li>
+          <a href={href} class="link inline-flex min-h-tap items-center gap-2" rel="noopener me">
+            <Icon width={20} height={20} aria-hidden="true" />
+            {label}
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</section>

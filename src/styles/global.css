@@ -211,6 +211,24 @@
     font-weight: var(--font-weight-medium);
   }
 
+  .status-dot {
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: var(--radius-chip);
+    background-color: currentColor;
+  }
+
+  .skip-link {
+    position: absolute;
+    top: var(--spacing-2);
+    left: var(--spacing-2);
+    z-index: 20;
+    transform: translateY(-200%);
+  }
+  .skip-link:focus-visible {
+    transform: none;
+  }
+
   .btn-primary {
     display: inline-flex;
     align-items: center;

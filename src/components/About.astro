@@ -1,0 +1,27 @@
+---
+import { Image } from "astro:assets";
+import SectionTitle from "@/components/SectionTitle.astro";
+import profile from "@/assets/profile.webp";
+---
+
+<section aria-labelledby="about-title" class="grid gap-stack md:grid-cols-[1fr_2fr] md:gap-7">
+  <Image
+    src={profile}
+    alt="Portrait of Anthony Molina"
+    widths={[240, 480]}
+    sizes="(min-width: 768px) 14rem, 40vw"
+    class="aspect-4/5 w-2/5 rounded-media object-cover sm:w-1/3 md:w-full"
+  />
+  <div>
+    <SectionTitle id="about-title">About</SectionTitle>
+    <!-- TODO(content): final About copy (phase 3). -->
+    <p class="mt-stack max-w-measure text-lead">
+      I'm a Computer Engineer who builds interfaces for the web: fast pages, clear structure and
+      details that hold up on any screen.
+    </p>
+    <p class="mt-4 max-w-measure">
+      I live in Bogotá and currently work in SEO support. Before that I built websites for clients
+      as a freelance developer.
+    </p>
+  </div>
+</section>

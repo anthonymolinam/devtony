@@ -1,0 +1,37 @@
+---
+import { getCollection, render } from "astro:content";
+import SectionTitle from "@/components/SectionTitle.astro";
+
+const entries = (await getCollection("experience")).sort(
+  (a, b) => (b.data.end ?? Infinity) - (a.data.end ?? Infinity) || b.data.start - a.data.start,
+);
+
+const items = await Promise.all(
+  entries.map(async (entry) => ({ ...entry.data, id: entry.id, Content: (await render(entry)).Content })),
+);
+---
+
+<section id="experience" aria-labelledby="experience-title">
+  <SectionTitle id="experience-title">Experience</SectionTitle>
+  <ol class="mt-stack flex flex-col gap-7">
+    {
+      items.map((item) => (
+        <li class="grid gap-1 md:grid-cols-[10rem_1fr] md:gap-6">
+          <p class="tabular text-small text-ink-muted">
+            <time datetime={String(item.start)}>{item.start}</time> –{" "}
+            {item.end === null ? "Present" : <time datetime={String(item.end)}>{item.end}</time>}
+          </p>
+          <div>
+            <h3 class="font-medium">{item.role}</h3>
+            <p class="text-small text-ink-muted">
+              {[item.company, item.mode, item.location].filter(Boolean).join(" · ")}
+            </p>
+            <div class="mt-3 max-w-measure">
+              <item.Content />
+            </div>
+          </div>
+        </li>
+      ))
+    }
+  </ol>
+</section>

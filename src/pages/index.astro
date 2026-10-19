@@ -1,7 +1,31 @@
 ---
 import Base from "@/layouts/Base.astro";
+import About from "@/components/About.astro";
+import Bento from "@/components/Bento.astro";
+import Contact from "@/components/Contact.astro";
+import Experience from "@/components/Experience.astro";
+import Footer from "@/components/Footer.astro";
+import Header from "@/components/Header.astro";
+import Hero from "@/components/Hero.astro";
+import Projects from "@/components/Projects.astro";
+import Skills from "@/components/Skills.astro";
+import { site } from "@/data/site";
 ---
 
-<Base title="Anthony Molina" description="Computer Engineer and frontend developer in Bogotá.">
-  <h1>Anthony Molina</h1>
+<Base title={`${site.name} · Frontend developer`} description={site.description}>
+  <div id="top"></div>
+  <a href="#main" class="skip-link">Skip to content</a>
+  <Header />
+  <div class="px-gutter">
+    <main id="main" class="mx-auto flex max-w-page flex-col gap-section">
+      <Hero />
+      <About />
+      <Bento />
+      <Experience />
+      <Skills />
+      <Projects />
+      <Contact />
+    </main>
+    <Footer />
+  </div>
 </Base>

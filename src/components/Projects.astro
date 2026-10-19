@@ -1,0 +1,55 @@
+---
+import { Image } from "astro:assets";
+import { getCollection } from "astro:content";
+import ArrowUpRight from "@phosphor-icons/core/regular/arrow-up-right.svg";
+import SectionTitle from "@/components/SectionTitle.astro";
+
+const projects = (await getCollection("projects")).sort((a, b) => a.data.order - b.data.order);
+---
+
+<section id="projects" aria-labelledby="projects-title">
+  <SectionTitle id="projects-title">Projects</SectionTitle>
+  <ul class="mt-stack grid gap-bento md:grid-cols-2">
+    {
+      projects.map((project, index) => {
+        const { title, summary, image, imageAlt, stack, links } = project.data;
+        return (
+          <li class:list={["card flex flex-col gap-5", { "md:col-span-2": index === 0 }]}>
+            <Image
+              src={image}
+              alt={imageAlt}
+              widths={[480, 960, 1440]}
+              sizes={index === 0 ? "(min-width: 46rem) 42rem, 100vw" : "(min-width: 46rem) 21rem, 100vw"}
+              class="aspect-16/10 w-full rounded-media object-cover object-top-left"
+            />
+            <div class="flex flex-col gap-3">
+              <h3 class="text-lead">{title}</h3>
+              <p class="max-w-measure">{summary}</p>
+              <ul class="flex flex-wrap gap-2" aria-label="Stack">
+                {stack.map((tech) => (
+                  <li class="chip bg-canvas">{tech}</li>
+                ))}
+              </ul>
+              {(links.live || links.source) && (
+                <p class="flex flex-wrap gap-5 text-small">
+                  {links.live && (
+                    <a href={links.live} class="link inline-flex items-center gap-1" rel="noopener">
+                      Live site
+                      <ArrowUpRight width={16} height={16} aria-hidden="true" />
+                    </a>
+                  )}
+                  {links.source && (
+                    <a href={links.source} class="link inline-flex items-center gap-1" rel="noopener">
+                      Source
+                      <ArrowUpRight width={16} height={16} aria-hidden="true" />
+                    </a>
+                  )}
+                </p>
+              )}
+            </div>
+          </li>
+        );
+      })
+    }
+  </ul>
+</section>

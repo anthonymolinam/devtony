@@ -1,0 +1,85 @@
+---
+import { Image } from "astro:assets";
+import ArrowUpRight from "@phosphor-icons/core/regular/arrow-up-right.svg";
+import Cpu from "@phosphor-icons/core/regular/cpu.svg";
+import GraphicsCard from "@phosphor-icons/core/regular/graphics-card.svg";
+import Keyboard from "@phosphor-icons/core/regular/keyboard.svg";
+import Mouse from "@phosphor-icons/core/regular/mouse-simple.svg";
+import cover1 from "@/assets/playlist/cover-1.jpg";
+import cover2 from "@/assets/playlist/cover-2.jpg";
+import cover3 from "@/assets/playlist/cover-3.jpg";
+import { playlist, setup, site } from "@/data/site";
+
+const setupIcons = { cpu: Cpu, gpu: GraphicsCard, keyboard: Keyboard, mouse: Mouse };
+const covers = [cover1, cover2, cover3];
+---
+
+<!--
+  Static for now. Phase "islands": Local time becomes a React island (live clock and day status)
+  and the playlist plays previews on tap. Source order is the phone order; wider screens place
+  the cards explicitly.
+-->
+<section aria-label="Right now" class="grid gap-bento sm:grid-cols-2 md:grid-cols-3">
+  <article class="card flex flex-col justify-between gap-6 sm:col-start-1 sm:row-start-2 md:col-start-3 md:row-start-1">
+    <h2 class="card-title">Local time</h2>
+    <p>
+      <span class="block font-display text-title">Bogotá</span>
+      <span class="tabular text-small text-ink-muted">UTC−5</span>
+    </p>
+  </article>
+
+  <article class="card flex flex-col gap-5 sm:col-span-2 sm:row-start-1 md:col-start-1">
+    <h2 class="card-title">Now playing</h2>
+    <div class="grid grid-cols-[1.5fr_1fr_1fr] items-end gap-3">
+      {
+        covers.map((cover, index) => (
+          <Image
+            src={cover}
+            alt=""
+            widths={index === 0 ? [240, 480] : [160, 320]}
+            sizes={index === 0 ? "(min-width: 768px) 12rem, 40vw" : "(min-width: 768px) 8rem, 25vw"}
+            class="aspect-square w-full rounded-media object-cover"
+          />
+        ))
+      }
+    </div>
+    <div>
+      <p class="text-lead">{playlist.name}</p>
+      <a href={playlist.url} class="link inline-flex items-center gap-1 text-small" rel="noopener">
+        Listen on Apple Music
+        <ArrowUpRight width={16} height={16} aria-hidden="true" />
+      </a>
+    </div>
+  </article>
+
+  <article class="card flex flex-col gap-4 sm:col-span-2 sm:row-start-3 md:col-start-2 md:row-start-2">
+    <h2 class="card-title">Availability</h2>
+    <p class="chip chip-status self-start">
+      <span class="status-dot" aria-hidden="true"></span>
+      Open to work
+    </p>
+    <!-- TODO(content): the role you are looking for. -->
+    <p class="text-lead">Frontend roles, remote or in Bogotá.</p>
+    <a href={`mailto:${site.email}`} class="link self-start text-small">{site.email}</a>
+  </article>
+
+  <article class="card flex flex-col gap-4 sm:col-start-2 sm:row-start-2 md:col-start-1 md:row-start-2">
+    <h2 class="card-title">Setup</h2>
+    <ul class="flex flex-col gap-3">
+      {
+        setup.map((item) => {
+          const Icon = setupIcons[item.icon];
+          return (
+            <li class="flex items-center gap-3">
+              <Icon width={20} height={20} class="shrink-0 text-ink-muted" aria-hidden="true" />
+              <span>
+                <span class="sr-only">{item.label}: </span>
+                {item.value}
+              </span>
+            </li>
+          );
+        })
+      }
+    </ul>
+  </article>
+</section>
