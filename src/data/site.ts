@@ -3,10 +3,10 @@ export const site = {
   role: "Computer Engineer and frontend developer in Bogotá.",
   description:
     "Anthony Molina is a Computer Engineer and frontend developer in Bogotá, Colombia.",
-  email: "admm1225@gmail.com",
+  email: "contact@devtony.net",
   location: "Bogotá, Colombia",
   // TODO(content): confirm both profile URLs.
-  github: "https://github.com/TODO",
+  github: "https://github.com/anthonymolinam",
   linkedin: "https://www.linkedin.com/in/TODO",
 } as const;
 
@@ -24,7 +24,10 @@ export const setup = [
 
 // TODO(content): replace with the final skills list.
 export const skills = [
-  { group: "Languages", items: ["TypeScript", "JavaScript", "HTML", "CSS"] },
+  {
+    group: "Languages",
+    items: ["TypeScript", "JavaScript", "HTML", "CSS", "Python"],
+  },
   { group: "Frameworks", items: ["React", "Next.js", "Astro", "Tailwind CSS"] },
   { group: "Tools", items: ["Git", "Vercel", "Bun"] },
 ] as const;
