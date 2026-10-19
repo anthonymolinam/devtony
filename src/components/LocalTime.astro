@@ -1,0 +1,163 @@
+---
+import { MINUTES_PER_DAY, STATUS_LABELS, UTC_OFFSET_LABEL, segmentsFor, workingHoursSummary } from "@/data/schedule";
+
+interface Props {
+  class?: string;
+}
+
+const { class: className } = Astro.props;
+
+// Without JS the bar shows a regular weekday; the script redraws it for today in Bogotá.
+const segments = segmentsFor(1);
+const percent = (minutes: number) => `${(minutes / MINUTES_PER_DAY) * 100}%`;
+const legend = (["sleeping", "working", "off-hours"] as const).map((status) => ({ status, label: STATUS_LABELS[status] }));
+---
+
+<!-- Without JS it shows the time zone, usual hours and the day bar; the script adds the live clock, status and marker. -->
+<article class:list={["card flex flex-col justify-between gap-6", className]} data-local-time>
+  <h2 class="card-title">Local time</h2>
+
+  <div class="flex flex-col items-start gap-3">
+    <p class="chip bg-canvas hidden" data-clock-status>
+      <span class="status-dot text-ink-muted" aria-hidden="true"></span>
+      <span data-clock-status-label></span>
+    </p>
+    <div>
+      <p class="font-display text-title tabular" data-clock>Bogotá</p>
+      <p class="text-small text-ink-muted" data-clock-meta>
+        {UTC_OFFSET_LABEL} · Usually working {workingHoursSummary()}
+      </p>
+    </div>
+  </div>
+
+  <!-- Decorative: the status text above is the accessible source. -->
+  <div class="w-full" aria-hidden="true">
+    <div class="day-bar" data-day-bar>
+      <div class="day-bar__track" data-day-bar-track>
+        {
+          segments.map((segment) => (
+            <span
+              class="day-bar__segment"
+              data-status={segment.status}
+              style={`left: ${percent(segment.start)}; width: ${percent(segment.end - segment.start)}`}
+            />
+          ))
+        }
+      </div>
+      <span class="day-bar__marker" data-day-bar-marker hidden></span>
+    </div>
+    <div class="mt-2 flex justify-between text-small text-ink-muted tabular">
+      <span>00</span><span>06</span><span>12</span><span>18</span><span>24</span>
+    </div>
+    <ul class="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-small text-ink-muted">
+      {
+        legend.map((item) => (
+          <li class="inline-flex items-center gap-2">
+            <span class="day-bar__swatch" data-status={item.status} />
+            {item.label}
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</article>
+
+<script>
+  import {
+    MINUTES_PER_DAY,
+    STATUS_LABELS,
+    TIME_ZONE,
+    UTC_OFFSET_LABEL,
+    segmentsFor,
+    statusAt,
+  } from "@/data/schedule";
+
+  const WEEKDAY_INDEX: Record<string, number> = { Sun: 0, Mon: 1, Tue: 2, Wed: 3, Thu: 4, Fri: 5, Sat: 6 };
+
+  const partsFormat = new Intl.DateTimeFormat("en-US", {
+    timeZone: TIME_ZONE,
+    weekday: "short",
+    hour: "2-digit",
+    minute: "2-digit",
+    hourCycle: "h23",
+  });
+
+  function bogotaNow(date: Date) {
+    const parts = Object.fromEntries(partsFormat.formatToParts(date).map((part) => [part.type, part.value]));
+    const hours = Number(parts.hour);
+    const minutes = Number(parts.minute);
+    return {
+      day: WEEKDAY_INDEX[parts.weekday ?? "Sun"] ?? 0,
+      minutes: hours * 60 + minutes,
+      label: `${parts.hour}:${parts.minute}`,
+    };
+  }
+
+  // Bogotá has no daylight saving time: always UTC−5.
+  const BOGOTA_OFFSET_MINUTES = -5 * 60;
+
+  function relativeToVisitor(date: Date): string {
+    const visitorOffset = -date.getTimezoneOffset();
+    const diff = (visitorOffset - BOGOTA_OFFSET_MINUTES) / 60;
+    if (diff === 0) return "Same time as you";
+    const amount = Math.abs(diff);
+    const hours = Number.isInteger(amount) ? String(amount) : amount.toFixed(1);
+    return `${hours} h ${diff > 0 ? "behind" : "ahead of"} you`;
+  }
+
+  function drawSegments(track: HTMLElement, day: number) {
+    const percent = (minutes: number) => `${(minutes / MINUTES_PER_DAY) * 100}%`;
+    track.replaceChildren(
+      ...segmentsFor(day).map((segment) => {
+        const span = document.createElement("span");
+        span.className = "day-bar__segment";
+        span.dataset.status = segment.status;
+        span.style.left = percent(segment.start);
+        span.style.width = percent(segment.end - segment.start);
+        return span;
+      }),
+    );
+  }
+
+  for (const card of document.querySelectorAll<HTMLElement>("[data-local-time]")) {
+    const clock = card.querySelector<HTMLElement>("[data-clock]");
+    const meta = card.querySelector<HTMLElement>("[data-clock-meta]");
+    const status = card.querySelector<HTMLElement>("[data-clock-status]");
+    const statusLabel = card.querySelector<HTMLElement>("[data-clock-status-label]");
+    const track = card.querySelector<HTMLElement>("[data-day-bar-track]");
+    const marker = card.querySelector<HTMLElement>("[data-day-bar-marker]");
+    if (!clock || !meta || !status || !statusLabel || !track || !marker) continue;
+
+    let drawnDay: number | null = null;
+
+    const render = () => {
+      const date = new Date();
+      const now = bogotaNow(date);
+      clock.textContent = now.label;
+      meta.textContent = `Bogotá · ${UTC_OFFSET_LABEL} · ${relativeToVisitor(date)}`;
+      statusLabel.textContent = STATUS_LABELS[statusAt(now.day, now.minutes)];
+      status.classList.remove("hidden");
+
+      if (drawnDay !== now.day) {
+        drawSegments(track, now.day);
+        drawnDay = now.day;
+      }
+      marker.style.setProperty("--progress", String(now.minutes / MINUTES_PER_DAY));
+      marker.hidden = false;
+    };
+
+    let timer: number | undefined;
+    const schedule = () => {
+      render();
+      // Next tick lands just after the minute changes.
+      timer = window.setTimeout(schedule, 60_000 - (Date.now() % 60_000) + 50);
+    };
+
+    schedule();
+    document.addEventListener("visibilitychange", () => {
+      if (document.visibilityState !== "visible") return;
+      window.clearTimeout(timer);
+      schedule();
+    });
+  }
+</script>

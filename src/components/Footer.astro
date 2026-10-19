@@ -1,0 +1,10 @@
+---
+import { site } from "@/data/site";
+
+const year = new Date().getFullYear();
+---
+
+<footer class="mx-auto mt-section flex max-w-page flex-wrap items-center justify-between gap-3 pb-7 text-small text-ink-muted">
+  <p>© {year} {site.name} · {site.location}</p>
+  <a href="#top" class="link">Back to top</a>
+</footer>

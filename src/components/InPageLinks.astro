@@ -1,0 +1,51 @@
+<!--
+  In-page links keep href="#id" so they work without JS. With JS they scroll and move focus
+  without ever writing the hash: no pushState, no new history entry.
+-->
+<script>
+  const TOP_ID = "top";
+  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+  function targetFor(hash: string): HTMLElement | null {
+    const id = decodeURIComponent(hash.slice(1));
+    return id ? document.getElementById(id) : null;
+  }
+
+  function goTo(target: HTMLElement, behavior: ScrollBehavior) {
+    if (target.id === TOP_ID) window.scrollTo({ top: 0, behavior });
+    else target.scrollIntoView({ behavior, block: "start" });
+  }
+
+  function focusTarget(target: HTMLElement) {
+    // Sections carry tabindex="-1" in the markup; this covers any other target.
+    if (!target.matches("a[href], button, input, select, textarea, [tabindex]")) {
+      target.setAttribute("tabindex", "-1");
+    }
+    target.focus({ preventScroll: true });
+  }
+
+  document.addEventListener("click", (event) => {
+    if (event.defaultPrevented || event.button !== 0) return;
+    if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+
+    const link = (event.target as Element | null)?.closest<HTMLAnchorElement>('a[href^="#"]');
+    if (!link) return;
+    const target = targetFor(link.getAttribute("href") ?? "");
+    if (!target) return;
+
+    event.preventDefault();
+    goTo(target, reducedMotion.matches ? "auto" : "smooth");
+    focusTarget(target);
+  });
+
+  // A hash in the URL (shared link, or typed into the address bar): go there, then drop it.
+  function consumeHash() {
+    if (!location.hash) return;
+    const target = targetFor(location.hash);
+    if (target) goTo(target, "auto");
+    history.replaceState(history.state, "", location.pathname + location.search);
+  }
+
+  consumeHash();
+  window.addEventListener("hashchange", consumeHash);
+</script>

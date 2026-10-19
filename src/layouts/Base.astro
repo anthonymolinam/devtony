@@ -1,0 +1,53 @@
+---
+import "@/styles/global.css";
+import InPageLinks from "@/components/InPageLinks.astro";
+import geistRegular from "@fontsource/geist-sans/files/geist-sans-latin-400-normal.woff2?url";
+
+interface Props {
+  title: string;
+  description: string;
+}
+
+const { title, description } = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Runs before first paint: stored choice wins, otherwise the system setting (kept in sync live). -->
+    <script is:inline>
+      (() => {
+        const root = document.documentElement;
+        const media = window.matchMedia("(prefers-color-scheme: dark)");
+        const stored = () => {
+          try {
+            const value = localStorage.getItem("theme");
+            return value === "light" || value === "dark" ? value : null;
+          } catch {
+            return null;
+          }
+        };
+        root.dataset.theme = stored() ?? (media.matches ? "dark" : "light");
+        media.addEventListener("change", (event) => {
+          if (!stored()) root.dataset.theme = event.matches ? "dark" : "light";
+        });
+      })();
+    </script>
+    <meta name="theme-color" content="#fafaf8" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#131312" media="(prefers-color-scheme: dark)" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="preload" href={geistRegular} as="font" type="font/woff2" crossorigin />
+  </head>
+  <body>
+    <slot />
+    <InPageLinks />
+  </body>
+</html>

@@ -1,0 +1,21 @@
+---
+import Moon from "@phosphor-icons/core/regular/moon.svg";
+import Sun from "@phosphor-icons/core/regular/sun.svg";
+---
+
+<button type="button" class="theme-toggle" data-theme-toggle aria-label="Toggle color theme">
+  <Sun class="theme-toggle__sun" width={20} height={20} aria-hidden="true" />
+  <Moon class="theme-toggle__moon" width={20} height={20} aria-hidden="true" />
+</button>
+
+<script>
+  import { applyTheme, currentTheme, storeTheme } from "@/scripts/theme";
+
+  for (const button of document.querySelectorAll<HTMLButtonElement>("[data-theme-toggle]")) {
+    button.addEventListener("click", () => {
+      const next = currentTheme() === "dark" ? "light" : "dark";
+      applyTheme(next);
+      storeTheme(next);
+    });
+  }
+</script>

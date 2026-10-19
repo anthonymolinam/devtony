@@ -1,0 +1,479 @@
+/* Self-hosted fonts: only the weights DESIGN.md uses (Geist 400/500, Newsreader 400). */
+@import "@fontsource/geist-sans/latin-400.css";
+@import "@fontsource/geist-sans/latin-500.css";
+@import "@fontsource/newsreader/latin-400.css";
+
+@import "tailwindcss";
+
+/*
+ * Design tokens from DESIGN.md. Tailwind defaults are cleared so only these
+ * values exist as utilities. Colors use light-dark(): the active value follows
+ * `color-scheme`, which the theme script sets through `data-theme` on <html>.
+ */
+@theme {
+  --color-*: initial;
+  --color-canvas: light-dark(#fafaf8, #131312);
+  --color-surface: light-dark(#f2f1ee, #262624);
+  --color-surface-hover: light-dark(#ecebe7, #30302d);
+  --color-ink: light-dark(#1a1a18, #ecebe7);
+  --color-ink-muted: light-dark(#6b6a65, #a19f99);
+  --color-on-ink: light-dark(#fafaf8, #131312);
+  --color-accent: light-dark(#c42733, #f2636b);
+  --color-on-accent: light-dark(#ffffff, #131312);
+  --color-status-bg: light-dark(#e8f0e6, #1e2e20);
+  --color-status-ink: light-dark(#2f6b35, #8dcb93);
+  --color-border: light-dark(#e4e3df, #33332f);
+  /* Neutral tones for the 24 h bar, mixed from ink and surface so both themes follow. */
+  --color-track-working: color-mix(in oklab, var(--color-ink) 60%, var(--color-surface));
+  --color-track-off: color-mix(in oklab, var(--color-ink) 28%, var(--color-surface));
+  --color-track-sleep: color-mix(in oklab, var(--color-ink) 12%, var(--color-surface));
+
+  --font-*: initial;
+  --font-display: "Newsreader", Georgia, serif;
+  --font-sans: "Geist Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  /* Only for real code (<code>, <pre>), never as decoration. System faces, nothing downloaded. */
+  --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+
+  --text-*: initial;
+  --text-display: clamp(2.75rem, 1.6rem + 5vw, 5rem);
+  --text-display--line-height: 1;
+  --text-display--letter-spacing: -0.035em;
+  --text-title: clamp(1.75rem, 1.4rem + 1.6vw, 2.5rem);
+  --text-title--line-height: 1.1;
+  --text-title--letter-spacing: -0.02em;
+  --text-lead: clamp(1.125rem, 1.05rem + 0.4vw, 1.3125rem);
+  --text-lead--line-height: 1.5;
+  --text-lead--letter-spacing: -0.005em;
+  --text-body: 1.0625rem;
+  --text-body--line-height: 1.6;
+  --text-small: 0.875rem;
+  --text-small--line-height: 1.45;
+
+  --font-weight-*: initial;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+
+  --spacing: initial;
+  --spacing-0: 0px;
+  --spacing-1: 0.25rem;
+  --spacing-2: 0.5rem;
+  --spacing-3: 0.75rem;
+  --spacing-4: 1rem;
+  --spacing-5: 1.5rem;
+  --spacing-6: 2rem;
+  --spacing-7: 3rem;
+  --spacing-8: 4rem;
+  --spacing-9: 6rem;
+  --spacing-gutter: clamp(1rem, 0.5rem + 2.5vw, 2rem);
+  --spacing-section: clamp(5rem, 3rem + 8vw, 9rem);
+  --spacing-stack: 1.5rem;
+  --spacing-bento: 0.75rem;
+  --spacing-card: clamp(1.25rem, 1rem + 1vw, 1.75rem);
+  --spacing-tap: 2.5rem;
+  /* Sticky header (tap target + its vertical padding) plus breathing room above a section title. */
+  --spacing-scroll-offset: calc(var(--spacing-tap) + 2 * var(--spacing-3) + var(--spacing-4));
+
+  --container-*: initial;
+  --container-page: 46rem;
+  --container-measure: 62ch;
+
+  --radius-*: initial;
+  --radius-card: 12px;
+  --radius-media: 8px;
+  --radius-control: 6px;
+  --radius-kbd: 4px;
+  --radius-chip: 999px;
+
+  --shadow-*: initial;
+  --shadow-float: 0 8px 24px rgb(0 0 0 / 0.08);
+
+  --ease-*: initial;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Motion tokens (Tailwind has no theme namespace for durations). */
+:root {
+  --dur-fast: 150ms;
+  --dur-base: 200ms;
+  --dur-enter: 600ms;
+  --stagger: 70ms;
+  --rise: 16px;
+}
+
+/* Theme: follow the system until the visitor picks one; the head script sets data-theme. */
+:root {
+  color-scheme: light dark;
+}
+:root[data-theme="light"] {
+  color-scheme: light;
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+}
+
+@layer base {
+  html {
+    background-color: var(--color-canvas);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-size: 100%;
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    scrollbar-color: var(--color-ink-muted) var(--color-canvas);
+    accent-color: var(--color-accent);
+  }
+
+  body {
+    min-height: 100dvh;
+    font-size: var(--text-body);
+    line-height: var(--text-body--line-height);
+    background-color: var(--color-canvas);
+  }
+
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  ::selection {
+    background-color: var(--color-accent);
+    color: var(--color-on-accent);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 3px;
+  }
+
+  /* In-page link targets: clear of the sticky header, and no ring when focus is moved to them. */
+  [id][tabindex="-1"] {
+    scroll-margin-top: var(--spacing-scroll-offset);
+  }
+  [tabindex="-1"]:focus,
+  [tabindex="-1"]:focus-visible {
+    outline: none;
+  }
+
+  a {
+    color: inherit;
+  }
+
+  kbd {
+    font-family: var(--font-sans);
+    font-size: var(--text-small);
+    padding: 0 var(--spacing-1);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-kbd);
+    background-color: var(--color-surface);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+}
+
+@layer components {
+  /* Inline text link: muted underline that turns accent on hover. */
+  .link {
+    text-decoration-line: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.2em;
+    text-decoration-color: var(--color-ink-muted);
+    transition: text-decoration-color var(--dur-base) var(--ease-out);
+  }
+  .link:hover {
+    text-decoration-color: var(--color-accent);
+  }
+
+  .card {
+    background-color: var(--color-surface);
+    border-radius: var(--radius-card);
+    padding: var(--spacing-card);
+  }
+
+  .card-title {
+    font-size: var(--text-small);
+    line-height: var(--text-small--line-height);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-ink-muted);
+  }
+
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-2);
+    padding: var(--spacing-1) var(--spacing-3);
+    border-radius: var(--radius-chip);
+    background-color: var(--color-surface);
+    font-size: var(--text-small);
+    line-height: var(--text-small--line-height);
+  }
+
+  .chip-status {
+    background-color: var(--color-status-bg);
+    color: var(--color-status-ink);
+    font-weight: var(--font-weight-medium);
+  }
+
+  .status-dot {
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: var(--radius-chip);
+    background-color: currentColor;
+  }
+
+  .skip-link {
+    position: absolute;
+    top: var(--spacing-2);
+    left: var(--spacing-2);
+    z-index: 20;
+    transform: translateY(-200%);
+  }
+  .skip-link:focus-visible {
+    transform: none;
+  }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-2);
+    min-height: var(--spacing-tap);
+    padding: var(--spacing-3) var(--spacing-5);
+    border-radius: var(--radius-control);
+    background-color: var(--color-ink);
+    color: var(--color-on-ink);
+    font-size: var(--text-small);
+    line-height: var(--text-small--line-height);
+    font-weight: var(--font-weight-medium);
+    text-decoration: none;
+    transition:
+      opacity var(--dur-base) var(--ease-out),
+      transform var(--dur-fast) var(--ease-out);
+  }
+  .btn-primary:hover {
+    opacity: 0.88;
+  }
+  .btn-primary:active {
+    transform: scale(0.98);
+  }
+
+  /* Markdown bodies (experience entries): paragraph rhythm and inline code. */
+  .entry-body > * + * {
+    margin-top: var(--spacing-3);
+  }
+  .entry-body code {
+    font-family: var(--font-mono);
+    font-size: 0.875em;
+    padding: 0.1em 0.35em;
+    border-radius: var(--radius-kbd);
+    background-color: var(--color-surface-hover);
+    overflow-wrap: anywhere;
+  }
+
+  /* Quiet companion to the primary button (copy email). */
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: var(--spacing-tap);
+    padding: var(--spacing-2) var(--spacing-4);
+    border-radius: var(--radius-control);
+    background-color: var(--color-surface);
+    color: var(--color-ink);
+    font-size: var(--text-small);
+    line-height: var(--text-small--line-height);
+    font-weight: var(--font-weight-medium);
+    cursor: pointer;
+    transition:
+      background-color var(--dur-base) var(--ease-out),
+      transform var(--dur-fast) var(--ease-out);
+  }
+  .btn-secondary:hover {
+    background-color: var(--color-surface-hover);
+  }
+  .btn-secondary:active {
+    transform: scale(0.98);
+  }
+
+  /* Playlist cover that plays its preview on tap. */
+  .playlist-cover {
+    position: relative;
+    display: block;
+    width: 100%;
+    border-radius: var(--radius-media);
+    cursor: pointer;
+    transition: transform var(--dur-fast) var(--ease-out);
+  }
+  .playlist-cover:active {
+    transform: scale(0.98);
+  }
+  /* Centered control: always shown on touch screens, on hover or focus with a pointer. */
+  .playlist-cover__control {
+    position: absolute;
+    inset: 0;
+    margin: auto;
+    display: grid;
+    place-items: center;
+    width: var(--spacing-tap);
+    height: var(--spacing-tap);
+    border-radius: var(--radius-chip);
+    background-color: var(--color-canvas);
+    color: var(--color-ink);
+    transition:
+      opacity var(--dur-base) var(--ease-out),
+      transform var(--dur-base) var(--ease-out);
+  }
+  .playlist-cover[aria-pressed="true"] .playlist-cover__control {
+    color: var(--color-accent);
+  }
+  @media (hover: hover) {
+    .playlist-cover__control {
+      opacity: 0;
+      transform: scale(0.9);
+    }
+    /* Also kept visible while playing, so pause is never hidden. */
+    .playlist-cover:hover .playlist-cover__control,
+    .playlist-cover:focus-visible .playlist-cover__control,
+    .playlist-cover[aria-pressed="true"] .playlist-cover__control {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  /* 24 h bar in the local time card. Tones come from --color-track-*. */
+  .day-bar {
+    position: relative;
+  }
+  .day-bar__track {
+    position: relative;
+    height: 0.5rem;
+    border-radius: var(--radius-chip);
+    overflow: hidden;
+    background-color: var(--color-track-off);
+  }
+  .day-bar__segment {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+  }
+  .day-bar__segment[data-status="sleeping"],
+  .day-bar__swatch[data-status="sleeping"] {
+    background-color: var(--color-track-sleep);
+  }
+  .day-bar__segment[data-status="working"],
+  .day-bar__swatch[data-status="working"] {
+    background-color: var(--color-track-working);
+  }
+  .day-bar__segment[data-status="off-hours"],
+  .day-bar__swatch[data-status="off-hours"] {
+    background-color: var(--color-track-off);
+  }
+  .day-bar__swatch {
+    width: 0.625rem;
+    height: 0.625rem;
+    border-radius: var(--radius-chip);
+  }
+  .day-bar__marker {
+    position: absolute;
+    top: -0.25rem;
+    bottom: -0.25rem;
+    left: calc(var(--progress, 0) * 100%);
+    width: 2px;
+    margin-left: -1px;
+    border-radius: 1px;
+    background-color: var(--color-ink);
+  }
+
+  /* Icon centred on the first line of the text next to it. */
+  .icon-first-line {
+    flex-shrink: 0;
+    margin-top: calc((1lh - 20px) / 2);
+  }
+
+  /* Three bars in the accent while a preview plays; static under reduced motion. */
+  .equalizer {
+    display: inline-flex;
+    align-items: flex-end;
+    gap: 2px;
+    height: 0.875rem;
+    flex-shrink: 0;
+  }
+  .equalizer > span {
+    width: 3px;
+    height: 100%;
+    border-radius: 1px;
+    background-color: var(--color-accent);
+    transform-origin: bottom;
+  }
+  .equalizer > span:nth-child(2) {
+    transform: scaleY(0.6);
+  }
+  .equalizer > span:nth-child(3) {
+    transform: scaleY(0.8);
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .equalizer > span {
+      animation: equalizer 900ms var(--ease-out) infinite alternate;
+    }
+    .equalizer > span:nth-child(2) {
+      animation-delay: -300ms;
+    }
+    .equalizer > span:nth-child(3) {
+      animation-delay: -600ms;
+    }
+  }
+  @keyframes equalizer {
+    from {
+      transform: scaleY(0.25);
+    }
+    to {
+      transform: scaleY(1);
+    }
+  }
+
+  /* Shows the theme you would switch to; hidden without JS since it cannot work. */
+  .theme-toggle {
+    display: inline-grid;
+    place-items: center;
+    width: var(--spacing-tap);
+    height: var(--spacing-tap);
+    border-radius: var(--radius-control);
+    color: var(--color-ink);
+    cursor: pointer;
+    transition:
+      background-color var(--dur-base) var(--ease-out),
+      transform var(--dur-fast) var(--ease-out);
+  }
+  .theme-toggle:hover {
+    background-color: var(--color-surface);
+  }
+  .theme-toggle:active {
+    transform: scale(0.94);
+  }
+  .theme-toggle > svg {
+    grid-area: 1 / 1;
+  }
+  :root:not([data-theme]) .theme-toggle,
+  :root[data-theme="light"] .theme-toggle__sun,
+  :root[data-theme="dark"] .theme-toggle__moon {
+    display: none;
+  }
+}
+
+@utility tabular {
+  font-variant-numeric: tabular-nums;
+}

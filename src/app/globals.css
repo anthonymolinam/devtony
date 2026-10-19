@@ -1,8 +1,0 @@
-@import "tailwindcss";
-@import "swiper/css";
-@import "swiper/css/pagination";
-
-body {
-  background: #171617;
-  color: #fff;
-}
