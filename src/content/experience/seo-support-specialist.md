@@ -1,10 +1,9 @@
 ---
 role: SEO Support Specialist
-company: "TODO: Company name"
-mode: On site
-location: Bogotá, Colombia
+company: "CLILtutors"
+mode: Remote
 start: 2025
-end: null
+end: 2026
 ---
 
-TODO: One or two sentences on what you do in this role and a concrete result (pages audited, traffic or ranking change, tooling you built).
+Improved organic search for an online language academy’s trilingual WordPress site (English, Spanish and Portuguese): technical audits, on-page optimization and multilingual SEO across its Elementor pages.
