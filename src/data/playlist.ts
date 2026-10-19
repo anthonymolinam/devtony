@@ -13,10 +13,12 @@ export interface PlaylistTrack {
 export const playlist = {
   name: "Anthony Playlist",
   url: "https://music.apple.com/profile/anthonymolina",
-  // TODO(content): example IDs. Replace with three songs from your playlist.
   tracks: [
-    { id: 993274903, fallbackCover: cover1 },
-    { id: 617154366, fallbackCover: cover2 },
-    { id: 1299241645, fallbackCover: cover3 },
+    // Tame Impala, "The Less I Know the Better"
+    { id: 1440838488, fallbackCover: cover1 },
+    // Bad Bunny, "KLOuFRENS"
+    { id: 1787023297, fallbackCover: cover2 },
+    // Omar Courtz, "KOKO"
+    { id: 1877482633, fallbackCover: cover3 },
   ] satisfies PlaylistTrack[],
 };
