@@ -18,7 +18,7 @@ export const playlist = {
     { id: 1440838488, fallbackCover: cover1 },
     // Bad Bunny, "KLOuFRENS"
     { id: 1787023297, fallbackCover: cover2 },
-    // TODO(content): example ID. Replace with one more song from your playlist.
-    { id: 1299241645, fallbackCover: cover3 },
+    // Omar Courtz, "KOKO"
+    { id: 1877482633, fallbackCover: cover3 },
   ] satisfies PlaylistTrack[],
 };
