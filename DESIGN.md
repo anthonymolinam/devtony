@@ -269,8 +269,8 @@ Cuatro tarjetas, cuadrícula asimétrica, sin alturas fijas (`grid-auto-rows: mi
 - Chip: fondo `--color-surface`, `--text-small`, radio `--radius-chip`, padding `--space-1` / `--space-3`, tipo oración, sin iconos.
 
 ### 9.6 Projects
-- Lista de tarjetas `.card`; 1 columna en móvil, 2 columnas desde `md` (el más importante puede ocupar las 2).
-- Por tarjeta: captura 16:10, nombre en `--text-lead`, una frase de qué resuelve, chips del stack, enlaces `Live site` y `Source` (con icono de flecha). Toda la tarjeta no es un enlace; los dos enlaces sí.
+- Lista de tarjetas `.card`; 1 columna en móvil, 2 columnas desde `md`. Si el número de proyectos es impar, el primero ocupa las 2 columnas.
+- Por tarjeta: captura 16:10, nombre en `--text-lead`, debajo tipo y año en `--text-small` muted (p. ej. "Client project · 2025", cada uno opcional), una frase de qué resuelve, chips del stack, enlaces `Live site` y `Source` (con icono de flecha). Toda la tarjeta no es un enlace; los dos enlaces sí.
 - Sin máscara ni degradado sobre la imagen; el texto nunca va encima de la captura.
 
 ### 9.7 Contact

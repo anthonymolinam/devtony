@@ -1,12 +1,18 @@
 ---
 title: CoeCaribe
-summary: "TODO: One sentence on what CoeCaribe is and what the site solves for its visitors."
+kind: Client project
+year: 2024
+summary: "Designed and built the full website for an IPS in Barranquilla specializing in internal medicine, precision nutrition and metabolic health. Service and condition pages, a booking flow with WhatsApp handoff, clinical calculators (HOMA-IR and TyG), and a blog the clinic manages on its own through Strapi. MedicalClinic structured data for local search. Handed off in 2024; the clinic now runs it in-house."
 image: ../../assets/projects/coecaribe.png
-imageAlt: "TODO: Describe what the CoeCaribe screenshot shows."
+imageAlt: "CoeCaribe home page: a dark hero with the headline about understanding what happens in your body, a gold “Día 0” booking button and an illustration of a golden DNA helix."
 stack:
-  - "TODO: Stack"
-links: {}
-order: 1
+  - Next.js
+  - Tailwind CSS
+  - Strapi
+  - Schema.org
+links:
+  live: https://www.coecaribe.com/
+order: 2
 ---
 
-TODO: Add the live URL (`links.live`) and, if public, the repository (`links.source`).
+TODO: Add the repository (`links.source`) if it is public.

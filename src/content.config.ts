@@ -26,6 +26,9 @@ const projects = defineCollection({
   schema: ({ image }) =>
     z.object({
       title: z.string(),
+      kind: z.enum(["Client project", "Personal project"]).optional(),
+      // Year the project shipped; omitted until confirmed.
+      year: year.optional(),
       summary: z.string(),
       image: image(),
       imageAlt: z.string(),
@@ -34,7 +37,7 @@ const projects = defineCollection({
         live: z.string().url().optional(),
         source: z.string().url().optional(),
       }),
-      // Lower numbers come first; the first project spans the full row on wide screens.
+      // Lower numbers come first; with an odd count the first one spans the full row on wide screens.
       order: z.number().int(),
     }),
 });

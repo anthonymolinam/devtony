@@ -5,6 +5,8 @@ import ArrowUpRight from "@phosphor-icons/core/regular/arrow-up-right.svg";
 import SectionTitle from "@/components/SectionTitle.astro";
 
 const projects = (await getCollection("projects")).sort((a, b) => a.data.order - b.data.order);
+// With an odd count the first project takes the full row, so the rest pair up evenly.
+const featureFirst = projects.length % 2 === 1;
 ---
 
 <section id="projects" tabindex="-1" aria-labelledby="projects-title">
@@ -12,18 +14,22 @@ const projects = (await getCollection("projects")).sort((a, b) => a.data.order -
   <ul class="mt-stack grid gap-bento md:grid-cols-2">
     {
       projects.map((project, index) => {
-        const { title, summary, image, imageAlt, stack, links } = project.data;
+        const { title, kind, year, summary, image, imageAlt, stack, links } = project.data;
+        const meta = [kind, year].filter(Boolean).join(" · ");
         return (
-          <li class:list={["card flex flex-col gap-5", { "md:col-span-2": index === 0 }]}>
+          <li class:list={["card flex flex-col gap-5", { "md:col-span-2": featureFirst && index === 0 }]}>
             <Image
               src={image}
               alt={imageAlt}
               widths={[480, 960, 1440]}
-              sizes={index === 0 ? "(min-width: 46rem) 42rem, 100vw" : "(min-width: 46rem) 21rem, 100vw"}
+              sizes={featureFirst && index === 0 ? "(min-width: 46rem) 42rem, 100vw" : "(min-width: 46rem) 21rem, 100vw"}
               class="aspect-16/10 w-full rounded-media object-cover object-top-left"
             />
             <div class="flex flex-col gap-3">
-              <h3 class="text-lead">{title}</h3>
+              <div>
+                <h3 class="text-lead">{title}</h3>
+                {meta && <p class="tabular text-small text-ink-muted">{meta}</p>}
+              </div>
               <p class="max-w-measure">{summary}</p>
               <ul class="flex flex-wrap gap-2" aria-label="Stack">
                 {stack.map((tech) => (
