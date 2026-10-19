@@ -55,6 +55,7 @@ public/         Favicons and static files
 ### Scripts
 
 - `bun run screenshots` captures the project screenshots with Playwright (needs Chrome installed).
+- `bun run og` captures the first screen of the built site as `public/og.png`, the link preview image (run `bun run build` first).
 - `bun run favicon build dt` regenerates `favicon.svg`, `favicon.ico` and `apple-touch-icon.png` from the Newsreader glyphs.
 
 ## Inspired by
