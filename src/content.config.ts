@@ -26,9 +26,9 @@ const projects = defineCollection({
   schema: ({ image }) =>
     z.object({
       title: z.string(),
-      kind: z.enum(["Client project", "Personal project"]).optional(),
-      // Year the project shipped; omitted until confirmed.
-      year: year.optional(),
+      kind: z.enum(["Client project", "Personal project"]),
+      // Year the project shipped. Leave it out until confirmed: no year, nothing shown.
+      year: z.number().int().optional(),
       summary: z.string(),
       image: image(),
       imageAlt: z.string(),
