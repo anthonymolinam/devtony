@@ -55,19 +55,21 @@ Monocromo cálido. El color es escaso: el acento rojo aparece en el foco, los en
 
 ### Tema oscuro (desciende del `#171617` / `#202120` actual)
 
+Ajustado en la fase 2: con `#161615` / `#21211F` (1.12:1) fondo y superficie casi no se distinguían. Ahora la superficie se separa con claridad (1.23:1, ~12 puntos L*).
+
 | Token | Valor | Uso |
 | --- | --- | --- |
-| `--color-canvas` | `#161615` | Fondo de página |
-| `--color-surface` | `#21211F` | Tarjetas, chips |
-| `--color-surface-hover` | `#2A2A27` | Hover de tarjetas |
-| `--color-ink` | `#ECEBE7` | Texto principal (15.2:1) |
-| `--color-ink-muted` | `#A19F99` | Texto secundario (6.8:1 canvas, 6.1:1 surface) |
-| `--color-on-ink` | `#161615` | Texto sobre botón primario |
-| `--color-accent` | `#F2636B` | Foco, enlace en hover, "playing" (5.8:1) |
-| `--color-on-accent` | `#161615` | (5.8:1) |
-| `--color-status-bg` | `#1C2A1E` | Fondo estado |
-| `--color-status-ink` | `#8DCB93` | Texto y punto del estado (7.9:1) |
-| `--color-border` | `#2E2E2B` | Solo inputs, `<kbd>`, header |
+| `--color-canvas` | `#131312` | Fondo de página |
+| `--color-surface` | `#262624` | Tarjetas, chips |
+| `--color-surface-hover` | `#30302D` | Hover de tarjetas |
+| `--color-ink` | `#ECEBE7` | Texto principal (12.7:1 sobre surface) |
+| `--color-ink-muted` | `#A19F99` | Texto secundario (7.0:1 canvas, 5.7:1 surface) |
+| `--color-on-ink` | `#131312` | Texto sobre botón primario |
+| `--color-accent` | `#F2636B` | Foco, enlace en hover, "playing" (4.9:1 sobre surface) |
+| `--color-on-accent` | `#131312` | Texto sobre acento |
+| `--color-status-bg` | `#1E2E20` | Fondo estado |
+| `--color-status-ink` | `#8DCB93` | Texto y punto del estado (7.6:1) |
+| `--color-border` | `#33332F` | Solo inputs, `<kbd>`, header |
 
 Reglas:
 - El texto corrido siempre en `--color-ink`; el gris es para notas secundarias.
@@ -132,6 +134,7 @@ Tokens de layout:
 | `--stack-gap` | `var(--space-5)` | Entre título de sección y contenido |
 | `--bento-gap` | `var(--space-3)` | Entre tarjetas bento |
 | `--card-pad` | `clamp(1.25rem, 1rem + 1vw, 1.75rem)` | Padding interno de tarjetas |
+| `--tap` | `2.5rem` (40) | Área táctil mínima de controles (toggle de tema, botones) |
 
 Sin alturas ni anchos fijos en px para tarjetas: la altura sale del contenido, la cuadrícula y `aspect-ratio` en medios.
 
@@ -277,7 +280,7 @@ Estado actual: Next.js 15 + Tailwind v4, tema oscuro único, Work Sans, cinco co
 | Estado "Open to work" | `hero.tsx` | Chip semántico verde en hero y tarjeta propia |
 | Proyecto CoeCaribe y su captura | `projects.tsx`, `assets/prueba.png` | Primera tarjeta de Projects (renombrar el archivo) |
 | Foto de perfil | `assets/profile.webp` | Sección About |
-| Tonos oscuros `#171617` / `#202120` | `globals.css`, tarjetas | Base del tema oscuro (`#161615` / `#21211F`) |
+| Tonos oscuros `#171617` / `#202120` | `globals.css`, tarjetas | Base del tema oscuro (`#131312` / `#262624`) |
 | Rojo `#DF2935` | Nombre del hero | Acento, ajustado a `#C42733` / `#F2636B` para pasar AA y usado solo en foco y estados |
 | Email y CTA "Get in touch" | `hero.tsx` | Botón primario con `mailto:` real (hoy apunta a `#`) |
 
@@ -309,3 +312,32 @@ Estado actual: Next.js 15 + Tailwind v4, tema oscuro único, Work Sans, cinco co
 - Fase 3: nombres de empresa y descripciones de experiencia, lista final de skills, proyectos además de CoeCaribe, URL de LinkedIn, rol buscado para "Open to work", IDs de las canciones de la playlist para los previews.
 - Fase 4: lista final de animaciones, dentro de los tokens de §7.
 - Si hace falta un tamaño, color o espacio nuevo, se agrega aquí primero.
+
+---
+
+## 12. Tokens en código
+
+Los tokens viven en `src/styles/global.css` dentro de `@theme` (Tailwind v4). Los valores por defecto de Tailwind (colores, fuentes, tamaños, espaciado, radios, sombras, easing) están borrados: solo existen estos.
+
+| DESIGN.md | Variable CSS | Utilidad Tailwind |
+| --- | --- | --- |
+| `--color-*` | `--color-canvas`, `--color-surface`, … | `bg-canvas`, `text-ink`, `text-ink-muted`, `bg-surface`, … |
+| `--font-display` / `--font-sans` | igual | `font-display`, `font-sans` |
+| `--text-display` … `--text-small` | igual (con línea y tracking) | `text-display`, `text-title`, `text-lead`, `text-body`, `text-small` |
+| `--space-1` … `--space-9` | `--spacing-1` … `--spacing-9` | `p-5`, `gap-3`, `mt-7`, … (escala de DESIGN.md, no la de Tailwind) |
+| `--gutter` | `--spacing-gutter` | `px-gutter` |
+| `--section-gap` | `--spacing-section` | `py-section`, `gap-section` |
+| `--stack-gap` | `--spacing-stack` | `gap-stack`, `mt-stack` |
+| `--bento-gap` | `--spacing-bento` | `gap-bento` |
+| `--card-pad` | `--spacing-card` | `p-card` |
+| `--tap` | `--spacing-tap` | `size-tap`, `min-h-tap` |
+| `--container` | `--container-page` | `max-w-page` |
+| `--measure` | `--container-measure` | `max-w-measure` |
+| `--radius-*` | igual | `rounded-card`, `rounded-media`, `rounded-control`, `rounded-chip` |
+| `--shadow-float` | igual | `shadow-float` |
+| `--ease-out` | igual | `ease-out` |
+| `--dur-*`, `--stagger`, `--rise` | igual, en `:root` | `duration-(--dur-base)` |
+
+- Claro/oscuro con `light-dark()`: cada color tiene sus dos valores en una sola declaración; el activo lo decide `color-scheme`, que se fija con `data-theme` en `<html>`.
+- Script inline en `<head>` (antes del primer pintado): usa `localStorage.theme` si existe, si no `prefers-color-scheme`, y sigue los cambios del sistema mientras no haya preferencia guardada. Sin JS, el sitio sigue al sistema y el toggle se oculta.
+- Clases de componente en `@layer components`: `.card`, `.card-title`, `.chip`, `.chip-status`, `.btn-primary`, `.link`, `.theme-toggle`. Utilidad extra: `tabular` (cifras tabulares).
