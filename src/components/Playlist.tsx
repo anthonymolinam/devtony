@@ -95,7 +95,7 @@ export default function Playlist({ name, url, tracks }: Props) {
                 >
                   {image}
                   <span className="playlist-cover__control" aria-hidden="true">
-                    {isPlaying ? <PauseIcon size={16} weight="fill" /> : <PlayIcon size={16} weight="fill" />}
+                    {isPlaying ? <PauseIcon size={16} /> : <PlayIcon size={16} />}
                   </span>
                 </button>
               ) : (
