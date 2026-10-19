@@ -91,12 +91,13 @@ Reglas:
 
 ## 3. Tipografía
 
-Dos familias, nunca más.
+Dos familias para el diseño, nunca más; la monoespaciada del sistema existe solo para código real.
 
 | Token | Familia | Uso |
 | --- | --- | --- |
 | `--font-display` | **Newsreader** (variable, Google Fonts / Fontsource), fallback `Georgia, serif` | Titular del hero y títulos de sección |
 | `--font-sans` | **Geist Sans** (Fontsource / Vercel), fallback `system-ui, -apple-system, "Segoe UI", sans-serif` | Todo lo demás: cuerpo, UI, botones, chips, fechas |
+| `--font-mono` | Monoespaciada del sistema: `ui-monospace, "SF Mono", Menlo, Consolas, monospace` (no se descarga) | Solo código real: `<code>` inline en textos de contenido (p. ej. un estado como `accepted`), a 0.875em sobre `--color-surface-hover` con `--radius-kbd`. Nunca como adorno |
 
 Prohibidas: Inter, Roboto, Open Sans, Work Sans (la actual), cualquier monoespaciada fuera de `<pre>/<code>`.
 

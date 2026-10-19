@@ -31,6 +31,8 @@
   --font-*: initial;
   --font-display: "Newsreader", Georgia, serif;
   --font-sans: "Geist Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  /* Only for real code (<code>, <pre>), never as decoration. System faces, nothing downloaded. */
+  --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
 
   --text-*: initial;
   --text-display: clamp(2.75rem, 1.6rem + 5vw, 5rem);
@@ -267,6 +269,19 @@
   }
   .btn-primary:active {
     transform: scale(0.98);
+  }
+
+  /* Markdown bodies (experience entries): paragraph rhythm and inline code. */
+  .entry-body > * + * {
+    margin-top: var(--spacing-3);
+  }
+  .entry-body code {
+    font-family: var(--font-mono);
+    font-size: 0.875em;
+    padding: 0.1em 0.35em;
+    border-radius: var(--radius-kbd);
+    background-color: var(--color-surface-hover);
+    overflow-wrap: anywhere;
   }
 
   /* Quiet companion to the primary button (copy email). */
