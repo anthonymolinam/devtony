@@ -1,0 +1,50 @@
+---
+import { getImage } from "astro:assets";
+import Playlist, { type PlaylistCover, type PlaylistItem } from "@/components/Playlist";
+import { playlist } from "@/data/playlist";
+import { lookupTracks } from "@/lib/itunes";
+
+interface Props {
+  class?: string;
+}
+
+const { class: className } = Astro.props;
+
+const found = await lookupTracks(playlist.tracks.map((track) => track.id));
+
+const sizesFor = (index: number) =>
+  index === 0 ? "(min-width: 768px) 12rem, 40vw" : "(min-width: 768px) 8rem, 25vw";
+const widthsFor = (index: number) => (index === 0 ? [240, 480] : [160, 320]);
+
+async function optimize(src: string | ImageMetadata, index: number): Promise<PlaylistCover> {
+  const image = await getImage({ src, width: 600, height: 600, widths: widthsFor(index), format: "webp" });
+  return { src: image.src, srcSet: image.srcSet.attribute, sizes: sizesFor(index) };
+}
+
+const tracks: PlaylistItem[] = await Promise.all(
+  playlist.tracks.map(async (track, index) => {
+    const remote = found.get(track.id);
+    let cover: PlaylistCover | null = null;
+    if (remote) {
+      try {
+        cover = await optimize(remote.artworkUrl, index);
+      } catch (error) {
+        console.warn(`[playlist] artwork for ${track.id} failed, using local cover: ${String(error)}`);
+      }
+    }
+    return {
+      id: track.id,
+      title: remote?.title ?? null,
+      artist: remote?.artist ?? null,
+      // A preview only makes sense next to its own artwork.
+      previewUrl: cover ? (remote?.previewUrl ?? null) : null,
+      cover: cover ?? (await optimize(track.fallbackCover, index)),
+    };
+  }),
+);
+---
+
+<article class:list={["card flex flex-col gap-5", className]}>
+  <h2 class="card-title">Now playing</h2>
+  <Playlist client:visible name={playlist.name} url={playlist.url} tracks={tracks} />
+</article>

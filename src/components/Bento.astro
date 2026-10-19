@@ -1,18 +1,13 @@
 ---
-import { Image } from "astro:assets";
-import ArrowUpRight from "@phosphor-icons/core/regular/arrow-up-right.svg";
 import Cpu from "@phosphor-icons/core/regular/cpu.svg";
 import GraphicsCard from "@phosphor-icons/core/regular/graphics-card.svg";
 import Keyboard from "@phosphor-icons/core/regular/keyboard.svg";
 import Mouse from "@phosphor-icons/core/regular/mouse-simple.svg";
 import LocalTime from "@/components/LocalTime.astro";
-import cover1 from "@/assets/playlist/cover-1.jpg";
-import cover2 from "@/assets/playlist/cover-2.jpg";
-import cover3 from "@/assets/playlist/cover-3.jpg";
-import { playlist, setup, site } from "@/data/site";
+import PlaylistCard from "@/components/PlaylistCard.astro";
+import { setup, site } from "@/data/site";
 
 const setupIcons = { cpu: Cpu, gpu: GraphicsCard, keyboard: Keyboard, mouse: Mouse };
-const covers = [cover1, cover2, cover3];
 ---
 
 <!--
@@ -21,29 +16,7 @@ const covers = [cover1, cover2, cover3];
 <section aria-label="Right now" class="grid gap-bento sm:grid-cols-2 md:grid-cols-3">
   <LocalTime class="sm:col-start-1 sm:row-start-2 md:col-start-3 md:row-start-1" />
 
-  <article class="card flex flex-col gap-5 sm:col-span-2 sm:row-start-1 md:col-start-1">
-    <h2 class="card-title">Now playing</h2>
-    <div class="grid grid-cols-[1.5fr_1fr_1fr] items-end gap-3">
-      {
-        covers.map((cover, index) => (
-          <Image
-            src={cover}
-            alt=""
-            widths={index === 0 ? [240, 480] : [160, 320]}
-            sizes={index === 0 ? "(min-width: 768px) 12rem, 40vw" : "(min-width: 768px) 8rem, 25vw"}
-            class="aspect-square w-full rounded-media object-cover"
-          />
-        ))
-      }
-    </div>
-    <div>
-      <p class="text-lead">{playlist.name}</p>
-      <a href={playlist.url} class="link inline-flex items-center gap-1 text-small" rel="noopener">
-        Listen on Apple Music
-        <ArrowUpRight width={16} height={16} aria-hidden="true" />
-      </a>
-    </div>
-  </article>
+  <PlaylistCard class="sm:col-span-2 sm:row-start-1 md:col-start-1" />
 
   <article class="card flex flex-col gap-4 sm:col-span-2 sm:row-start-3 md:col-start-2 md:row-start-2">
     <h2 class="card-title">Availability</h2>

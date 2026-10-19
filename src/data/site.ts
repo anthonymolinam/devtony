@@ -1,7 +1,8 @@
 export const site = {
   name: "Anthony Molina",
   role: "Computer Engineer and frontend developer in Bogotá.",
-  description: "Anthony Molina is a Computer Engineer and frontend developer in Bogotá, Colombia.",
+  description:
+    "Anthony Molina is a Computer Engineer and frontend developer in Bogotá, Colombia.",
   email: "admm1225@gmail.com",
   location: "Bogotá, Colombia",
   // TODO(content): confirm both profile URLs.
@@ -15,8 +16,8 @@ export const playlist = {
 } as const;
 
 export const setup = [
-  { icon: "cpu", label: "Processor", value: "Ryzen 5 5600G" },
-  { icon: "gpu", label: "Graphics", value: "GTX 1660 Super" },
+  { icon: "cpu", label: "Processor", value: "Ryzen 5 9600X" },
+  { icon: "gpu", label: "Graphics", value: "RTX 3060 Ti" },
   { icon: "keyboard", label: "Keyboard", value: "AJAZZ AK820 Pro" },
   { icon: "mouse", label: "Mouse", value: "Prime Mini Wireless" },
 ] as const;
