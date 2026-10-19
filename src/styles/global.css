@@ -52,6 +52,7 @@
   --font-weight-medium: 500;
 
   --spacing: initial;
+  --spacing-0: 0px;
   --spacing-1: 0.25rem;
   --spacing-2: 0.5rem;
   --spacing-3: 0.75rem;
@@ -67,6 +68,8 @@
   --spacing-bento: 0.75rem;
   --spacing-card: clamp(1.25rem, 1rem + 1vw, 1.75rem);
   --spacing-tap: 2.5rem;
+  /* Sticky header (tap target + its vertical padding) plus breathing room above a section title. */
+  --spacing-scroll-offset: calc(var(--spacing-tap) + 2 * var(--spacing-3) + var(--spacing-4));
 
   --container-*: initial;
   --container-page: 46rem;
@@ -117,7 +120,6 @@
     -webkit-font-smoothing: antialiased;
     scrollbar-color: var(--color-ink-muted) var(--color-canvas);
     accent-color: var(--color-accent);
-    scroll-padding-top: 5rem;
   }
 
   body {
@@ -145,6 +147,15 @@
   :focus-visible {
     outline: 2px solid var(--color-accent);
     outline-offset: 3px;
+  }
+
+  /* In-page link targets: clear of the sticky header, and no ring when focus is moved to them. */
+  [id][tabindex="-1"] {
+    scroll-margin-top: var(--spacing-scroll-offset);
+  }
+  [tabindex="-1"]:focus,
+  [tabindex="-1"]:focus-visible {
+    outline: none;
   }
 
   a {

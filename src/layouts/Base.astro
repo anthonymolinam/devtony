@@ -1,5 +1,6 @@
 ---
 import "@/styles/global.css";
+import InPageLinks from "@/components/InPageLinks.astro";
 import geistRegular from "@fontsource/geist-sans/files/geist-sans-latin-400-normal.woff2?url";
 
 interface Props {
@@ -45,5 +46,6 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
   </head>
   <body>
     <slot />
+    <InPageLinks />
   </body>
 </html>

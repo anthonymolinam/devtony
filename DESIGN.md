@@ -145,6 +145,7 @@ Tokens de layout:
 | `--bento-gap` | `var(--space-3)` | Entre tarjetas bento |
 | `--card-pad` | `clamp(1.25rem, 1rem + 1vw, 1.75rem)` | Padding interno de tarjetas |
 | `--tap` | `2.5rem` (40) | Área táctil mínima de controles (toggle de tema, botones) |
+| `--scroll-offset` | `--tap` + 2 × `--space-3` + `--space-4` (5rem) | `scroll-margin-top` de los destinos de enlaces internos: alto del header fijo más aire sobre el título |
 
 Sin alturas ni anchos fijos en px para tarjetas: la altura sale del contenido, la cuadrícula y `aspect-ratio` en medios.
 
@@ -338,13 +339,14 @@ Los tokens viven en `src/styles/global.css` dentro de `@theme` (Tailwind v4). Lo
 | `--color-*` | `--color-canvas`, `--color-surface`, … | `bg-canvas`, `text-ink`, `text-ink-muted`, `bg-surface`, … |
 | `--font-display` / `--font-sans` | igual | `font-display`, `font-sans` |
 | `--text-display` … `--text-small` | igual (con línea y tracking) | `text-display`, `text-title`, `text-lead`, `text-body`, `text-small` |
-| `--space-1` … `--space-9` | `--spacing-1` … `--spacing-9` | `p-5`, `gap-3`, `mt-7`, … (escala de DESIGN.md, no la de Tailwind) |
+| `--space-1` … `--space-9` | `--spacing-1` … `--spacing-9` (+ `--spacing-0: 0`) | `p-5`, `gap-3`, `mt-7`, `top-0`, … (escala de DESIGN.md, no la de Tailwind; sin `--spacing` base, cualquier paso fuera de la escala no genera nada) |
 | `--gutter` | `--spacing-gutter` | `px-gutter` |
 | `--section-gap` | `--spacing-section` | `py-section`, `gap-section` |
 | `--stack-gap` | `--spacing-stack` | `gap-stack`, `mt-stack` |
 | `--bento-gap` | `--spacing-bento` | `gap-bento` |
 | `--card-pad` | `--spacing-card` | `p-card` |
 | `--tap` | `--spacing-tap` | `size-tap`, `min-h-tap` |
+| `--scroll-offset` | `--spacing-scroll-offset` | `scroll-mt-scroll-offset` (aplicado en CSS base a `[id][tabindex="-1"]`) |
 | `--container` | `--container-page` | `max-w-page` |
 | `--measure` | `--container-measure` | `max-w-measure` |
 | `--radius-*` | igual | `rounded-card`, `rounded-media`, `rounded-control`, `rounded-chip` |

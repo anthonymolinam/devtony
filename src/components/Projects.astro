@@ -7,7 +7,7 @@ import SectionTitle from "@/components/SectionTitle.astro";
 const projects = (await getCollection("projects")).sort((a, b) => a.data.order - b.data.order);
 ---
 
-<section id="projects" aria-labelledby="projects-title">
+<section id="projects" tabindex="-1" aria-labelledby="projects-title">
   <SectionTitle id="projects-title">Projects</SectionTitle>
   <ul class="mt-stack grid gap-bento md:grid-cols-2">
     {

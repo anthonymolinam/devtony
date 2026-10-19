@@ -13,11 +13,11 @@ import { site } from "@/data/site";
 ---
 
 <Base title={`${site.name} · Frontend developer`} description={site.description}>
-  <div id="top"></div>
+  <div id="top" tabindex="-1"></div>
   <a href="#main" class="skip-link">Skip to content</a>
   <Header />
   <div class="px-gutter">
-    <main id="main" class="mx-auto flex max-w-page flex-col gap-section">
+    <main id="main" tabindex="-1" class="mx-auto flex max-w-page flex-col gap-section">
       <Hero />
       <About />
       <Bento />
