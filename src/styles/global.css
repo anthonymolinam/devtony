@@ -254,6 +254,31 @@
     transform: scale(0.98);
   }
 
+  /* Quiet companion to the primary button (copy email). */
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: var(--spacing-tap);
+    padding: var(--spacing-2) var(--spacing-4);
+    border-radius: var(--radius-control);
+    background-color: var(--color-surface);
+    color: var(--color-ink);
+    font-size: var(--text-small);
+    line-height: var(--text-small--line-height);
+    font-weight: var(--font-weight-medium);
+    cursor: pointer;
+    transition:
+      background-color var(--dur-base) var(--ease-out),
+      transform var(--dur-fast) var(--ease-out);
+  }
+  .btn-secondary:hover {
+    background-color: var(--color-surface-hover);
+  }
+  .btn-secondary:active {
+    transform: scale(0.98);
+  }
+
   /* Playlist cover that plays its preview on tap. */
   .playlist-cover {
     position: relative;

@@ -1,0 +1,42 @@
+---
+interface Props {
+  email: string;
+}
+
+const { email } = Astro.props;
+---
+
+<!-- Hidden until the script confirms the Clipboard API is available. -->
+<span class="inline-flex items-center gap-3" data-copy-email={email} hidden>
+  <button type="button" class="btn-secondary" data-copy-button>Copy email</button>
+  <span class="text-small text-ink-muted" role="status" aria-live="polite" data-copy-status></span>
+</span>
+
+<script>
+  const RESET_AFTER_MS = 2_000;
+
+  for (const root of document.querySelectorAll<HTMLElement>("[data-copy-email]")) {
+    const email = root.dataset.copyEmail;
+    const button = root.querySelector<HTMLButtonElement>("[data-copy-button]");
+    const status = root.querySelector<HTMLElement>("[data-copy-status]");
+    if (!email || !button || !status || !navigator.clipboard) continue;
+
+    root.hidden = false;
+    let timer: number | undefined;
+
+    button.addEventListener("click", async () => {
+      window.clearTimeout(timer);
+      try {
+        await navigator.clipboard.writeText(email);
+        button.textContent = "Copied";
+        status.textContent = "Email copied to clipboard.";
+      } catch {
+        status.textContent = "Couldn't copy. Select the address instead.";
+      }
+      timer = window.setTimeout(() => {
+        button.textContent = "Copy email";
+        status.textContent = "";
+      }, RESET_AFTER_MS);
+    });
+  }
+</script>

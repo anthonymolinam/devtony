@@ -1,6 +1,7 @@
 ---
 import GithubLogo from "@phosphor-icons/core/regular/github-logo.svg";
 import LinkedinLogo from "@phosphor-icons/core/regular/linkedin-logo.svg";
+import CopyEmail from "@/components/CopyEmail.astro";
 import SectionTitle from "@/components/SectionTitle.astro";
 import { site } from "@/data/site";
 
@@ -12,9 +13,9 @@ const profiles = [
 
 <section id="contact" aria-labelledby="contact-title">
   <SectionTitle id="contact-title">Have a project or a role in mind?</SectionTitle>
-  <!-- TODO(islands): copy-to-clipboard button next to the email. -->
-  <p class="mt-stack">
+  <p class="mt-stack flex flex-wrap items-center gap-x-5 gap-y-3">
     <a href={`mailto:${site.email}`} class="link text-lead break-all">{site.email}</a>
+    <CopyEmail email={site.email} />
   </p>
   <ul class="mt-6 flex flex-wrap gap-5">
     {

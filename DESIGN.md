@@ -163,6 +163,10 @@ Sin alturas ni anchos fijos en px para tarjetas: la altura sale del contenido, l
 - Hover: opacidad 0.88. `:active`: `scale(0.98)`. Sin sombra.
 - Solo hay uno en toda la página: "Get in touch" (abre `mailto:`).
 
+### Botón secundario
+- Fondo `--color-surface`, texto `--color-ink`, `--text-small` peso 500, radio `--radius-control`, alto mínimo `--tap`.
+- Hover: `--color-surface-hover`. `:active`: `scale(0.98)`. Solo para acciones de apoyo (copiar email).
+
 ### Enlaces de texto
 - Color `--color-ink`, subrayado `1px` con `text-underline-offset: 0.2em` en `--color-ink-muted`; en hover el subrayado pasa a `--color-accent`.
 
@@ -340,4 +344,4 @@ Los tokens viven en `src/styles/global.css` dentro de `@theme` (Tailwind v4). Lo
 
 - Claro/oscuro con `light-dark()`: cada color tiene sus dos valores en una sola declaración; el activo lo decide `color-scheme`, que se fija con `data-theme` en `<html>`.
 - Script inline en `<head>` (antes del primer pintado): usa `localStorage.theme` si existe, si no `prefers-color-scheme`, y sigue los cambios del sistema mientras no haya preferencia guardada. Sin JS, el sitio sigue al sistema y el toggle se oculta.
-- Clases de componente en `@layer components`: `.card`, `.card-title`, `.chip`, `.chip-status`, `.btn-primary`, `.link`, `.theme-toggle`. Utilidad extra: `tabular` (cifras tabulares).
+- Clases de componente en `@layer components`: `.card`, `.card-title`, `.chip`, `.chip-status`, `.btn-primary`, `.btn-secondary`, `.link`, `.theme-toggle`. Utilidad extra: `tabular` (cifras tabulares).
