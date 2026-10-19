@@ -5,6 +5,7 @@ import Cpu from "@phosphor-icons/core/regular/cpu.svg";
 import GraphicsCard from "@phosphor-icons/core/regular/graphics-card.svg";
 import Keyboard from "@phosphor-icons/core/regular/keyboard.svg";
 import Mouse from "@phosphor-icons/core/regular/mouse-simple.svg";
+import LocalTime from "@/components/LocalTime.astro";
 import cover1 from "@/assets/playlist/cover-1.jpg";
 import cover2 from "@/assets/playlist/cover-2.jpg";
 import cover3 from "@/assets/playlist/cover-3.jpg";
@@ -15,18 +16,10 @@ const covers = [cover1, cover2, cover3];
 ---
 
 <!--
-  Static for now. Phase "islands": Local time becomes a React island (live clock and day status)
-  and the playlist plays previews on tap. Source order is the phone order; wider screens place
-  the cards explicitly.
+  Source order is the phone order; wider screens place the cards explicitly.
 -->
 <section aria-label="Right now" class="grid gap-bento sm:grid-cols-2 md:grid-cols-3">
-  <article class="card flex flex-col justify-between gap-6 sm:col-start-1 sm:row-start-2 md:col-start-3 md:row-start-1">
-    <h2 class="card-title">Local time</h2>
-    <p>
-      <span class="block font-display text-title">Bogotá</span>
-      <span class="tabular text-small text-ink-muted">UTC−5</span>
-    </p>
-  </article>
+  <LocalTime class="sm:col-start-1 sm:row-start-2 md:col-start-3 md:row-start-1" />
 
   <article class="card flex flex-col gap-5 sm:col-span-2 sm:row-start-1 md:col-start-1">
     <h2 class="card-title">Now playing</h2>

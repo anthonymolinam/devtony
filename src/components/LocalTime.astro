@@ -1,0 +1,97 @@
+---
+import { UTC_OFFSET_LABEL, workingHoursSummary } from "@/data/schedule";
+
+interface Props {
+  class?: string;
+}
+
+const { class: className } = Astro.props;
+---
+
+<!-- Without JS it shows the time zone and usual hours; the script swaps in the live clock and status. -->
+<article class:list={["card flex flex-col justify-between gap-6", className]} data-local-time>
+  <h2 class="card-title">Local time</h2>
+  <div class="flex flex-col items-start gap-3">
+    <p class="chip hidden" data-clock-status>
+      <span class="status-dot" aria-hidden="true"></span>
+      <span data-clock-status-label></span>
+    </p>
+    <div>
+      <p class="font-display text-title tabular" data-clock>Bogotá</p>
+      <p class="text-small text-ink-muted" data-clock-meta>
+        {UTC_OFFSET_LABEL} · Usually working {workingHoursSummary()}
+      </p>
+    </div>
+  </div>
+</article>
+
+<script>
+  import { STATUS_LABELS, TIME_ZONE, UTC_OFFSET_LABEL, statusAt } from "@/data/schedule";
+
+  const WEEKDAY_INDEX: Record<string, number> = { Sun: 0, Mon: 1, Tue: 2, Wed: 3, Thu: 4, Fri: 5, Sat: 6 };
+
+  const partsFormat = new Intl.DateTimeFormat("en-US", {
+    timeZone: TIME_ZONE,
+    weekday: "short",
+    hour: "2-digit",
+    minute: "2-digit",
+    hourCycle: "h23",
+  });
+
+  function bogotaNow(date: Date) {
+    const parts = Object.fromEntries(partsFormat.formatToParts(date).map((part) => [part.type, part.value]));
+    const hours = Number(parts.hour);
+    const minutes = Number(parts.minute);
+    return {
+      day: WEEKDAY_INDEX[parts.weekday ?? "Sun"] ?? 0,
+      minutes: hours * 60 + minutes,
+      label: `${parts.hour}:${parts.minute}`,
+    };
+  }
+
+  // Bogotá has no daylight saving time: always UTC−5.
+  const BOGOTA_OFFSET_MINUTES = -5 * 60;
+
+  function relativeToVisitor(date: Date): string {
+    const visitorOffset = -date.getTimezoneOffset();
+    const diff = (visitorOffset - BOGOTA_OFFSET_MINUTES) / 60;
+    if (diff === 0) return "Same time as you";
+    const amount = Math.abs(diff);
+    const hours = Number.isInteger(amount) ? String(amount) : amount.toFixed(1);
+    return `${hours} h ${diff > 0 ? "behind" : "ahead of"} you`;
+  }
+
+  for (const card of document.querySelectorAll<HTMLElement>("[data-local-time]")) {
+    const clock = card.querySelector<HTMLElement>("[data-clock]");
+    const meta = card.querySelector<HTMLElement>("[data-clock-meta]");
+    const status = card.querySelector<HTMLElement>("[data-clock-status]");
+    const statusLabel = card.querySelector<HTMLElement>("[data-clock-status-label]");
+    if (!clock || !meta || !status || !statusLabel) continue;
+
+    const render = () => {
+      const date = new Date();
+      const now = bogotaNow(date);
+      const current = statusAt(now.day, now.minutes);
+      clock.textContent = now.label;
+      meta.textContent = `Bogotá · ${UTC_OFFSET_LABEL} · ${relativeToVisitor(date)}`;
+      statusLabel.textContent = STATUS_LABELS[current];
+      status.classList.remove("hidden");
+      status.classList.toggle("chip-status", current === "working");
+      status.classList.toggle("bg-canvas", current !== "working");
+    };
+
+    let timer: number | undefined;
+    const schedule = () => {
+      render();
+      // Next tick lands just after the minute changes.
+      timer = window.setTimeout(schedule, 60_000 - (Date.now() % 60_000) + 50);
+    };
+
+    schedule();
+    document.addEventListener("visibilitychange", () => {
+      if (document.visibilityState !== "visible") return;
+      window.clearTimeout(timer);
+      schedule();
+    });
+  }
+</script>
