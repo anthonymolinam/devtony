@@ -3,6 +3,7 @@ export const site = {
   role: "Computer Engineer and frontend developer. I build fast, careful interfaces, and by day I keep real-time banking integrations running.",
   description:
     "Anthony Molina is a Computer Engineer and frontend developer in Bogotá, Colombia.",
+  url: "https://devtony.net",
   email: "contact@devtony.net",
   location: "Bogotá, Colombia",
   github: "https://github.com/anthonymolinam",
