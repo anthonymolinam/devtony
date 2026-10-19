@@ -5,9 +5,8 @@ export const site = {
     "Anthony Molina is a Computer Engineer and frontend developer in Bogotá, Colombia.",
   email: "contact@devtony.net",
   location: "Bogotá, Colombia",
-  // TODO(content): confirm both profile URLs.
   github: "https://github.com/anthonymolinam",
-  linkedin: "https://www.linkedin.com/in/TODO",
+  linkedin: "https://www.linkedin.com/in/anthonymolinam",
   // Discord profile links need the numeric user ID, not the username (devtony_).
   discord: "https://discord.com/users/1050576240056209408",
 } as const;
