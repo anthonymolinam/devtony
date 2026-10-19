@@ -1,5 +1,5 @@
 ---
-import ThemeToggle from "@/components/ThemeToggle";
+import ThemeToggle from "@/components/ThemeToggle.astro";
 import { site } from "@/data/site";
 
 const links = [
@@ -27,7 +27,7 @@ const links = [
           ))
         }
       </ul>
-      <ThemeToggle client:load />
+      <ThemeToggle />
     </nav>
   </div>
 </header>

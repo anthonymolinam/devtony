@@ -239,8 +239,8 @@ Cuatro tarjetas, cuadrícula asimétrica, sin alturas fijas (`grid-auto-rows: mi
 
 | Tarjeta | Contenido | Isla |
 | --- | --- | --- |
-| **Playlist** (`Now playing`) | Las 3 portadas reales en fila (1:1, la principal más grande), nombre de la playlist en `--text-lead`, enlace `Listen on Apple Music`. Al tocar una portada se reproduce su preview (30 s) y aparece el ecualizador en acento. | React |
-| **Local time** | Hora de Bogotá (UTC−5) en `--text-title` con `tabular-nums`, diferencia con la hora del visitante ("2 h behind you"), y estado del día: *Working* / *Off hours* / *Asleep*. Sin JS muestra "Bogotá, UTC−5". | React |
+| **Playlist** (`Now playing`) | Las 3 portadas reales en fila (1:1, la principal más grande), nombre de la playlist en `--text-lead`, enlace `Listen on Apple Music`. Al tocar una portada se reproduce su preview (30 s) y aparece el ecualizador en acento. Títulos, artistas y previews salen de la API de lookup de iTunes en el build; si falla, quedan las portadas locales sin play. | React, `client:visible` |
+| **Local time** | Hora de Bogotá (UTC−5) en `--text-title` con `tabular-nums`, diferencia con la hora del visitante ("2 h behind you"), y estado del día: *Working* / *Off hours* / *Sleeping* (rangos en `src/data/schedule.ts`). Sin JS muestra la zona horaria y el horario de trabajo. | Script vanilla |
 | **Open to work** | Chip de estado verde + una frase de qué rol busca (p. ej. "Frontend roles, remote or Bogotá") + enlace al email. | Estático |
 | **Setup** | Lista de 4 líneas: CPU, GPU, teclado, ratón, cada una con icono Phosphor y nombre. Sin bordes entre filas. | Estático |
 

@@ -11,7 +11,7 @@ Portafolio personal de Anthony Molina (DevTony), Computer Engineer y frontend de
 
 ## Stack
 - Astro 5 + Tailwind CSS v4 + TypeScript (estricto).
-- React solo para islas interactivas (reproductor/playlist, hora local, cambio de tema). Todo lo demás, componentes `.astro` sin JS.
+- React solo se usa en la playlist (reproductor de previews), hidratada con `client:visible`. La hora local, el cambio de tema y el botón de copiar email son `<script>` vanilla dentro de componentes `.astro`. Todo lo demás, componentes `.astro` sin JS.
 - Contenido (proyectos, experiencia) en Content Collections (`src/content/`), un archivo por entrada.
 - Gestor de paquetes: Bun.
 - Deploy: Vercel (Framework Preset: Astro).
