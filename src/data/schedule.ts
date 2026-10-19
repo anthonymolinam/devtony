@@ -44,7 +44,37 @@ export function statusAt(day: number, minutes: number): DayStatus {
   return "off-hours";
 }
 
-const DAY_NAMES = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+export const MINUTES_PER_DAY = 24 * 60;
+
+export interface Segment {
+  status: DayStatus;
+  start: number;
+  end: number;
+}
+
+/** The day split into consecutive stretches of the same status, in minutes from midnight. */
+export function segmentsFor(day: number): Segment[] {
+  const boundaries = new Set([0, MINUTES_PER_DAY]);
+  for (const range of SCHEDULE) {
+    boundaries.add(toMinutes(range.from));
+    boundaries.add(toMinutes(range.to));
+  }
+  const points = [...boundaries].filter((m) => m <= MINUTES_PER_DAY).sort((a, b) => a - b);
+
+  const segments: Segment[] = [];
+  for (let i = 0; i < points.length - 1; i++) {
+    const start = points[i] ?? 0;
+    const end = points[i + 1] ?? MINUTES_PER_DAY;
+    if (end <= start) continue;
+    const status = statusAt(day, start);
+    const last = segments.at(-1);
+    if (last && last.status === status) last.end = end;
+    else segments.push({ status, start, end });
+  }
+  return segments;
+}
+
+const DAY_NAMES =["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
 /** Human summary of the working range, for the no-JS state, e.g. "Mon–Fri, 09:00–18:00". */
 export function workingHoursSummary(): string {

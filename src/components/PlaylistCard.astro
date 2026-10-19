@@ -12,22 +12,22 @@ const { class: className } = Astro.props;
 
 const found = await lookupTracks(playlist.tracks.map((track) => track.id));
 
-const sizesFor = (index: number) =>
-  index === 0 ? "(min-width: 768px) 12rem, 40vw" : "(min-width: 768px) 8rem, 25vw";
-const widthsFor = (index: number) => (index === 0 ? [240, 480] : [160, 320]);
+// All three covers share one size: a third of the card.
+const COVER_SIZES = "(min-width: 768px) 9rem, 30vw";
+const COVER_WIDTHS = [160, 320, 480];
 
-async function optimize(src: string | ImageMetadata, index: number): Promise<PlaylistCover> {
-  const image = await getImage({ src, width: 600, height: 600, widths: widthsFor(index), format: "webp" });
-  return { src: image.src, srcSet: image.srcSet.attribute, sizes: sizesFor(index) };
+async function optimize(src: string | ImageMetadata): Promise<PlaylistCover> {
+  const image = await getImage({ src, width: 600, height: 600, widths: COVER_WIDTHS, format: "webp" });
+  return { src: image.src, srcSet: image.srcSet.attribute, sizes: COVER_SIZES };
 }
 
 const tracks: PlaylistItem[] = await Promise.all(
-  playlist.tracks.map(async (track, index) => {
+  playlist.tracks.map(async (track) => {
     const remote = found.get(track.id);
     let cover: PlaylistCover | null = null;
     if (remote) {
       try {
-        cover = await optimize(remote.artworkUrl, index);
+        cover = await optimize(remote.artworkUrl);
       } catch (error) {
         console.warn(`[playlist] artwork for ${track.id} failed, using local cover: ${String(error)}`);
       }
@@ -38,13 +38,13 @@ const tracks: PlaylistItem[] = await Promise.all(
       artist: remote?.artist ?? null,
       // A preview only makes sense next to its own artwork.
       previewUrl: cover ? (remote?.previewUrl ?? null) : null,
-      cover: cover ?? (await optimize(track.fallbackCover, index)),
+      cover: cover ?? (await optimize(track.fallbackCover)),
     };
   }),
 );
 ---
 
 <article class:list={["card flex flex-col gap-5", className]}>
-  <h2 class="card-title">Now playing</h2>
+  <h2 class="card-title">On repeat</h2>
   <Playlist client:visible name={playlist.name} url={playlist.url} tracks={tracks} />
 </article>

@@ -65,8 +65,8 @@ export default function Playlist({ name, url, tracks }: Props) {
   const showControls = hydrated && tracks.some((track) => track.previewUrl);
 
   return (
-    <div className="flex flex-col gap-5">
-      <ul className="grid grid-cols-[1.5fr_1fr_1fr] items-end gap-3">
+    <div className="flex grow flex-col justify-between gap-5">
+      <ul className="grid grid-cols-3 gap-3">
         {tracks.map((track, index) => {
           const isPlaying = current === index && playing;
           const image = (
@@ -95,7 +95,7 @@ export default function Playlist({ name, url, tracks }: Props) {
                 >
                   {image}
                   <span className="playlist-cover__control" aria-hidden="true">
-                    {isPlaying ? <PauseIcon size={16} /> : <PlayIcon size={16} />}
+                    {isPlaying ? <PauseIcon size={20} /> : <PlayIcon size={20} />}
                   </span>
                 </button>
               ) : (

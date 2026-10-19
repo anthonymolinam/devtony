@@ -23,6 +23,10 @@
   --color-status-bg: light-dark(#e8f0e6, #1e2e20);
   --color-status-ink: light-dark(#2f6b35, #8dcb93);
   --color-border: light-dark(#e4e3df, #33332f);
+  /* Neutral tones for the 24 h bar, mixed from ink and surface so both themes follow. */
+  --color-track-working: color-mix(in oklab, var(--color-ink) 60%, var(--color-surface));
+  --color-track-off: color-mix(in oklab, var(--color-ink) 28%, var(--color-surface));
+  --color-track-sleep: color-mix(in oklab, var(--color-ink) 12%, var(--color-surface));
 
   --font-*: initial;
   --font-display: "Newsreader", Georgia, serif;
@@ -291,26 +295,87 @@
   .playlist-cover:active {
     transform: scale(0.98);
   }
+  /* Centered control: always shown on touch screens, on hover or focus with a pointer. */
   .playlist-cover__control {
     position: absolute;
-    left: var(--spacing-2);
-    bottom: var(--spacing-2);
+    inset: 0;
+    margin: auto;
     display: grid;
     place-items: center;
-    width: 2rem;
-    height: 2rem;
+    width: var(--spacing-tap);
+    height: var(--spacing-tap);
     border-radius: var(--radius-chip);
     background-color: var(--color-canvas);
     color: var(--color-ink);
-    transition: transform var(--dur-base) var(--ease-out);
+    transition:
+      opacity var(--dur-base) var(--ease-out),
+      transform var(--dur-base) var(--ease-out);
   }
   .playlist-cover[aria-pressed="true"] .playlist-cover__control {
     color: var(--color-accent);
   }
   @media (hover: hover) {
-    .playlist-cover:hover .playlist-cover__control {
-      transform: scale(1.08);
+    .playlist-cover__control {
+      opacity: 0;
+      transform: scale(0.9);
     }
+    /* Also kept visible while playing, so pause is never hidden. */
+    .playlist-cover:hover .playlist-cover__control,
+    .playlist-cover:focus-visible .playlist-cover__control,
+    .playlist-cover[aria-pressed="true"] .playlist-cover__control {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  /* 24 h bar in the local time card. Tones come from --color-track-*. */
+  .day-bar {
+    position: relative;
+  }
+  .day-bar__track {
+    position: relative;
+    height: 0.5rem;
+    border-radius: var(--radius-chip);
+    overflow: hidden;
+    background-color: var(--color-track-off);
+  }
+  .day-bar__segment {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+  }
+  .day-bar__segment[data-status="sleeping"],
+  .day-bar__swatch[data-status="sleeping"] {
+    background-color: var(--color-track-sleep);
+  }
+  .day-bar__segment[data-status="working"],
+  .day-bar__swatch[data-status="working"] {
+    background-color: var(--color-track-working);
+  }
+  .day-bar__segment[data-status="off-hours"],
+  .day-bar__swatch[data-status="off-hours"] {
+    background-color: var(--color-track-off);
+  }
+  .day-bar__swatch {
+    width: 0.625rem;
+    height: 0.625rem;
+    border-radius: var(--radius-chip);
+  }
+  .day-bar__marker {
+    position: absolute;
+    top: -0.25rem;
+    bottom: -0.25rem;
+    left: calc(var(--progress, 0) * 100%);
+    width: 2px;
+    margin-left: -1px;
+    border-radius: 1px;
+    background-color: var(--color-ink);
+  }
+
+  /* Icon centred on the first line of the text next to it. */
+  .icon-first-line {
+    flex-shrink: 0;
+    margin-top: calc((1lh - 20px) / 2);
   }
 
   /* Three bars in the accent while a preview plays; static under reduced motion. */

@@ -13,7 +13,7 @@ export interface PlaylistTrack {
 export const playlist = {
   name: "Anthony Playlist",
   url: "https://music.apple.com/profile/anthonymolina",
-  // TODO(content): example IDs. Replace with three songs from your playlist; the first one is shown larger.
+  // TODO(content): example IDs. Replace with three songs from your playlist.
   tracks: [
     { id: 993274903, fallbackCover: cover1 },
     { id: 617154366, fallbackCover: cover2 },

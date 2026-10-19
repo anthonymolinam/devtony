@@ -35,7 +35,7 @@ Las dos skills se contradicen en varios puntos. Manda `minimalist-ui` en la estr
 
 ## 2. Color
 
-Monocromo cálido. El color es escaso: el acento rojo aparece en el foco, los enlaces activos y el estado "sonando" de la playlist. El verde solo significa "disponible". Todos los pares de texto pasan AA (ratios verificados).
+Monocromo cálido. El color es escaso: el acento rojo aparece en el foco, los enlaces activos y el estado "sonando" de la playlist. El verde solo significa "disponible" (Open to work); los estados de la hora local (Working, Off hours, Sleeping) usan un punto neutro. Todos los pares de texto pasan AA (ratios verificados).
 
 ### Tema claro (por defecto si el sistema no pide oscuro)
 
@@ -70,6 +70,16 @@ Ajustado en la fase 2: con `#161615` / `#21211F` (1.12:1) fondo y superficie cas
 | `--color-status-bg` | `#1E2E20` | Fondo estado |
 | `--color-status-ink` | `#8DCB93` | Texto y punto del estado (7.6:1) |
 | `--color-border` | `#33332F` | Solo inputs, `<kbd>`, header |
+
+### Tonos derivados (ambos temas)
+
+Mezclas de `--color-ink` sobre `--color-surface` con `color-mix(in oklab, …)`; siguen al tema solas. Solo para la barra de 24 h de la hora local.
+
+| Token | Mezcla | Uso |
+| --- | --- | --- |
+| `--color-track-working` | ink 60 % | Tramo "working" |
+| `--color-track-off` | ink 28 % | Tramo "off hours" y fondo de la barra |
+| `--color-track-sleep` | ink 12 % | Tramo "sleeping" |
 
 Reglas:
 - El texto corrido siempre en `--color-ink`; el gris es para notas secundarias.
@@ -235,18 +245,18 @@ Cuatro tarjetas, cuadrícula asimétrica, sin alturas fijas (`grid-auto-rows: mi
 
 - Móvil (< 640px): 1 columna, orden: hora → playlist → estado → setup.
 - `sm` (≥ 640px): 2 columnas; playlist ocupa las 2.
-- `md` (≥ 768px): 3 columnas.
+- `md` (≥ 768px): 6 columnas.
   ```
-  [ Playlist (2 col)        ][ Local time ]
-  [ Setup     ][ Open to work (2 col)     ]
+  [ On repeat (4 col)                 ][ Local time (2) ]
+  [ Setup (3 col)       ][ Availability (3 col)      ]
   ```
 
 | Tarjeta | Contenido | Isla |
 | --- | --- | --- |
-| **Playlist** (`Now playing`) | Las 3 portadas reales en fila (1:1, la principal más grande), nombre de la playlist en `--text-lead`, enlace `Listen on Apple Music`. Al tocar una portada se reproduce su preview (30 s) y aparece el ecualizador en acento. Títulos, artistas y previews salen de la API de lookup de iTunes en el build; si falla, quedan las portadas locales sin play. | React, `client:visible` |
-| **Local time** | Hora de Bogotá (UTC−5) en `--text-title` con `tabular-nums`, diferencia con la hora del visitante ("2 h behind you"), y estado del día: *Working* / *Off hours* / *Sleeping* (rangos en `src/data/schedule.ts`). Sin JS muestra la zona horaria y el horario de trabajo. | Script vanilla |
+| **Playlist** (`On repeat`) | Las 3 portadas reales en fila, del mismo tamaño (1:1, un tercio cada una), nombre de la playlist en `--text-lead`, enlace `Listen on Apple Music`. Ícono de play/pausa (Phosphor Regular) centrado sobre cada portada: siempre visible en pantallas táctiles (`hover: none`); con puntero aparece al hacer hover o focus y se queda mientras suena. Al tocar se reproduce el preview (30 s), una canción a la vez, y aparece el ecualizador en acento. Títulos, artistas y previews salen de la API de lookup de iTunes en el build; si falla, quedan las portadas locales sin play. | React, `client:visible` |
+| **Local time** | Estado en chip neutro (*Working* / *Off hours* / *Sleeping*, rangos en `src/data/schedule.ts`), hora de Bogotá en `--text-title` con `tabular-nums` y diferencia con la hora del visitante. Debajo, barra de 24 h decorativa (`aria-hidden`) con los tramos del día en `--color-track-*`, marcas 00/06/12/18/24, leyenda y una marca en `--color-ink` en la hora actual que avanza cada minuto. Sin JS: zona horaria, horario habitual y la barra de un día laborable, sin marca. | Script vanilla |
 | **Open to work** | Chip de estado verde + una frase de qué rol busca (p. ej. "Frontend roles, remote or Bogotá") + enlace al email. | Estático |
-| **Setup** | Lista de 4 líneas: CPU, GPU, teclado, ratón, cada una con icono Phosphor y nombre. Sin bordes entre filas. | Estático |
+| **Setup** | Lista de 4 líneas: CPU, GPU, teclado, ratón, cada una con icono Phosphor alineado a la primera línea del texto (`.icon-first-line`). Sin bordes entre filas. | Estático |
 
 ### 9.4 Experience
 - Lista vertical sin tarjetas ni línea de tiempo con puntos. Cada entrada separada por `--space-7`.

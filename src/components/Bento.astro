@@ -13,12 +13,12 @@ const setupIcons = { cpu: Cpu, gpu: GraphicsCard, keyboard: Keyboard, mouse: Mou
 <!--
   Source order is the phone order; wider screens place the cards explicitly.
 -->
-<section aria-label="Right now" class="grid gap-bento sm:grid-cols-2 md:grid-cols-3">
-  <LocalTime class="sm:col-start-1 sm:row-start-2 md:col-start-3 md:row-start-1" />
+<section aria-label="Right now" class="grid gap-bento sm:grid-cols-2 md:grid-cols-6">
+  <LocalTime class="sm:col-start-1 sm:row-start-2 md:col-span-2 md:col-start-5 md:row-start-1" />
 
-  <PlaylistCard class="sm:col-span-2 sm:row-start-1 md:col-start-1" />
+  <PlaylistCard class="sm:col-span-2 sm:row-start-1 md:col-span-4 md:col-start-1" />
 
-  <article class="card flex flex-col gap-4 sm:col-span-2 sm:row-start-3 md:col-start-2 md:row-start-2">
+  <article class="card flex flex-col gap-4 sm:col-span-2 sm:row-start-3 md:col-span-3 md:col-start-4 md:row-start-2">
     <h2 class="card-title">Availability</h2>
     <p class="chip chip-status self-start">
       <span class="status-dot" aria-hidden="true"></span>
@@ -29,15 +29,15 @@ const setupIcons = { cpu: Cpu, gpu: GraphicsCard, keyboard: Keyboard, mouse: Mou
     <a href={`mailto:${site.email}`} class="link self-start text-small">{site.email}</a>
   </article>
 
-  <article class="card flex flex-col gap-4 sm:col-start-2 sm:row-start-2 md:col-start-1 md:row-start-2">
+  <article class="card flex flex-col gap-4 sm:col-start-2 sm:row-start-2 md:col-span-3 md:col-start-1 md:row-start-2">
     <h2 class="card-title">Setup</h2>
     <ul class="flex flex-col gap-3">
       {
         setup.map((item) => {
           const Icon = setupIcons[item.icon];
           return (
-            <li class="flex items-center gap-3">
-              <Icon width={20} height={20} class="shrink-0 text-ink-muted" aria-hidden="true" />
+            <li class="flex items-start gap-3">
+              <Icon width={20} height={20} class="icon-first-line text-ink-muted" aria-hidden="true" />
               <span>
                 <span class="sr-only">{item.label}: </span>
                 {item.value}
