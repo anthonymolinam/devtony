@@ -60,4 +60,4 @@ public/         Favicons and static files
 ## Inspired by
 
 - [Ana Howard](https://ana.sh) for the live bento cards
-- [orlandomm.net](https://www.orlandomm.net) for the one-column structure
+- [Orlando Mina](https://www.orlandomm.net) for the one-column structure
