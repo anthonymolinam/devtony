@@ -9,6 +9,7 @@ import { site } from "@/data/site";
 const profiles = [
   { href: site.github, label: "GitHub", Icon: GithubLogo },
   { href: site.linkedin, label: "LinkedIn", Icon: LinkedinLogo },
+  { href: site.discord, label: "Discord", Icon: DiscordLogo },
 ];
 ---
 
@@ -20,7 +21,7 @@ const profiles = [
       <span data-copy-label>Copy email</span>
     </CopyButton>
   </p>
-  <ul class="mt-6 flex flex-wrap items-center gap-5">
+  <ul class="mt-6 flex flex-wrap gap-5">
     {
       profiles.map(({ href, label, Icon }) => (
         <li>
@@ -31,21 +32,5 @@ const profiles = [
         </li>
       ))
     }
-    <li>
-      <!-- Discord has no public profile URL by username, so the handle is copied instead. -->
-      <CopyButton
-        value={site.discord}
-        class="copy-handle"
-        label={`Discord ${site.discord}, copy username`}
-        message="Discord username copied."
-      >
-        <DiscordLogo width={20} height={20} aria-hidden="true" />
-        <span>Discord <span class="text-ink-muted">{site.discord}</span></span>
-        <span slot="fallback" class="inline-flex min-h-tap items-center gap-2">
-          <DiscordLogo width={20} height={20} aria-hidden="true" />
-          <span>Discord <span class="text-ink-muted">{site.discord}</span></span>
-        </span>
-      </CopyButton>
-    </li>
   </ul>
 </section>

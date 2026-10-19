@@ -294,29 +294,6 @@
     transform: scale(0.98);
   }
 
-  /* A handle that copies on click (Discord): reads like the profile links next to it. */
-  .copy-handle {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--spacing-2);
-    min-height: var(--spacing-tap);
-    border-radius: var(--radius-control);
-    cursor: pointer;
-    text-decoration-line: underline;
-    text-decoration-thickness: 1px;
-    text-underline-offset: 0.2em;
-    text-decoration-color: var(--color-ink-muted);
-    transition:
-      text-decoration-color var(--dur-base) var(--ease-out),
-      transform var(--dur-fast) var(--ease-out);
-  }
-  .copy-handle:hover {
-    text-decoration-color: var(--color-accent);
-  }
-  .copy-handle:active {
-    transform: scale(0.98);
-  }
-
   /* Playlist cover that plays its preview on tap. */
   .playlist-cover {
     position: relative;
