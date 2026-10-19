@@ -1,7 +1,8 @@
 ---
+import DiscordLogo from "@phosphor-icons/core/regular/discord-logo.svg";
 import GithubLogo from "@phosphor-icons/core/regular/github-logo.svg";
 import LinkedinLogo from "@phosphor-icons/core/regular/linkedin-logo.svg";
-import CopyEmail from "@/components/CopyEmail.astro";
+import CopyButton from "@/components/CopyButton.astro";
 import SectionTitle from "@/components/SectionTitle.astro";
 import { site } from "@/data/site";
 
@@ -15,9 +16,11 @@ const profiles = [
   <SectionTitle id="contact-title">Have a project or a role in mind?</SectionTitle>
   <p class="mt-stack flex flex-wrap items-center gap-x-5 gap-y-3">
     <a href={`mailto:${site.email}`} class="link text-lead break-all">{site.email}</a>
-    <CopyEmail email={site.email} />
+    <CopyButton value={site.email} class="btn-secondary" message="Email copied to clipboard.">
+      <span data-copy-label>Copy email</span>
+    </CopyButton>
   </p>
-  <ul class="mt-6 flex flex-wrap gap-5">
+  <ul class="mt-6 flex flex-wrap items-center gap-5">
     {
       profiles.map(({ href, label, Icon }) => (
         <li>
@@ -28,5 +31,21 @@ const profiles = [
         </li>
       ))
     }
+    <li>
+      <!-- Discord has no public profile URL by username, so the handle is copied instead. -->
+      <CopyButton
+        value={site.discord}
+        class="copy-handle"
+        label={`Discord ${site.discord}, copy username`}
+        message="Discord username copied."
+      >
+        <DiscordLogo width={20} height={20} aria-hidden="true" />
+        <span>Discord <span class="text-ink-muted">{site.discord}</span></span>
+        <span slot="fallback" class="inline-flex min-h-tap items-center gap-2">
+          <DiscordLogo width={20} height={20} aria-hidden="true" />
+          <span>Discord <span class="text-ink-muted">{site.discord}</span></span>
+        </span>
+      </CopyButton>
+    </li>
   </ul>
 </section>

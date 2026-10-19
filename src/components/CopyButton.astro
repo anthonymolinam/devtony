@@ -1,0 +1,63 @@
+---
+interface Props {
+  /** Text placed on the clipboard. */
+  value: string;
+  /** Classes for the button itself. */
+  class?: string;
+  /** Accessible name when the visible content is not enough on its own. */
+  label?: string;
+  /** Announced (and shown) after a successful copy. */
+  message: string;
+  /** Shown after a failed copy. */
+  failMessage?: string;
+}
+
+const { value, class: className, label, message, failMessage = "Couldn't copy. Select the text instead." } = Astro.props;
+---
+
+<!--
+  Hidden until the script confirms the Clipboard API is available; the `fallback` slot shows in
+  its place otherwise. A `[data-copy-label]` element inside the button reads "Copied" for a moment.
+-->
+<span class="contents" data-copy={value} data-copy-message={message} data-copy-fail={failMessage}>
+  <span class="inline-flex items-center gap-3" data-copy-control hidden>
+    <button type="button" class={className} aria-label={label} data-copy-button><slot /></button>
+    <span class="text-small text-ink-muted" role="status" aria-live="polite" data-copy-status></span>
+  </span>
+  <span data-copy-fallback><slot name="fallback" /></span>
+</span>
+
+<script>
+  const RESET_AFTER_MS = 2_000;
+
+  for (const root of document.querySelectorAll<HTMLElement>("[data-copy]")) {
+    const { copy: value, copyMessage: message, copyFail: failMessage } = root.dataset;
+    const control = root.querySelector<HTMLElement>("[data-copy-control]");
+    const button = root.querySelector<HTMLButtonElement>("[data-copy-button]");
+    const status = root.querySelector<HTMLElement>("[data-copy-status]");
+    const fallback = root.querySelector<HTMLElement>("[data-copy-fallback]");
+    if (!value || !control || !button || !status || !navigator.clipboard) continue;
+
+    control.hidden = false;
+    if (fallback) fallback.hidden = true;
+
+    const labelElement = button.querySelector<HTMLElement>("[data-copy-label]");
+    const idleLabel = labelElement?.textContent ?? "";
+    let timer: number | undefined;
+
+    button.addEventListener("click", async () => {
+      window.clearTimeout(timer);
+      try {
+        await navigator.clipboard.writeText(value);
+        if (labelElement) labelElement.textContent = "Copied";
+        status.textContent = message ?? "";
+      } catch {
+        status.textContent = failMessage ?? "";
+      }
+      timer = window.setTimeout(() => {
+        if (labelElement) labelElement.textContent = idleLabel;
+        status.textContent = "";
+      }, RESET_AFTER_MS);
+    });
+  }
+</script>

@@ -8,6 +8,7 @@ export const site = {
   // TODO(content): confirm both profile URLs.
   github: "https://github.com/anthonymolinam",
   linkedin: "https://www.linkedin.com/in/TODO",
+  discord: "devtony_",
 } as const;
 
 export const playlist = {

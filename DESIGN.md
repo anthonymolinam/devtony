@@ -277,7 +277,7 @@ Cuatro tarjetas, cuadrícula asimétrica, sin alturas fijas (`grid-auto-rows: mi
 - Cierre diseñado, no un formulario.
 - Frase en `--text-title`: `Have a project or a role in mind?`
 - Email grande como enlace (`--text-lead`), con botón secundario de copiar al portapapeles (texto, sin icono solo).
-- Fila de enlaces: GitHub, LinkedIn (iconos Phosphor + texto).
+- Fila de enlaces: GitHub, LinkedIn (iconos Phosphor + texto) y Discord. Discord no tiene URL de perfil por usuario: se muestra "Discord `devtony_`" como botón que copia el usuario (`.copy-handle`, con el mismo subrayado que los enlaces) y confirma con `aria-live`. Sin JS queda como texto.
 
 ---
 
@@ -356,4 +356,4 @@ Los tokens viven en `src/styles/global.css` dentro de `@theme` (Tailwind v4). Lo
 
 - Claro/oscuro con `light-dark()`: cada color tiene sus dos valores en una sola declaración; el activo lo decide `color-scheme`, que se fija con `data-theme` en `<html>`.
 - Script inline en `<head>` (antes del primer pintado): usa `localStorage.theme` si existe, si no `prefers-color-scheme`, y sigue los cambios del sistema mientras no haya preferencia guardada. Sin JS, el sitio sigue al sistema y el toggle se oculta.
-- Clases de componente en `@layer components`: `.card`, `.card-title`, `.chip`, `.chip-status`, `.btn-primary`, `.btn-secondary`, `.link`, `.theme-toggle`. Utilidad extra: `tabular` (cifras tabulares).
+- Clases de componente en `@layer components`: `.card`, `.card-title`, `.chip`, `.chip-status`, `.btn-primary`, `.btn-secondary`, `.copy-handle`, `.link`, `.theme-toggle`. Utilidad extra: `tabular` (cifras tabulares).
